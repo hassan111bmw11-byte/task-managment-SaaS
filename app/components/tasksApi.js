@@ -10,7 +10,7 @@ export const TaskProvider = ({ children }) => {
     async function getTasks() {
       try {
         const response = await fetch("https://demo-rrxv.onrender.com/allTasks");
-        const data = await response.json();
+        const data = await response.json() ?? " ";
         setTasks(data);
       } catch (error) {
         console.error("Error fetching tasks:", error);

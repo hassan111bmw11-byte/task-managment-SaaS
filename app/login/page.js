@@ -29,8 +29,8 @@ export default function Login() {
         }),
       });
 
-      const data = await res.json();
-      localStorage.setItem("data", JSON.stringify(data));
+      const data = await res.json() ?? " ";
+      localStorage.setItem("data", JSON.stringify(data)) ?? " ";
       if (res.ok && data.status) {
         console.log("login successfully");
         window.location.href = "./MainContent/dashboard";

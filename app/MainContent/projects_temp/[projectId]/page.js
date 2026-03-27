@@ -60,7 +60,7 @@ export default function Page({ params }) {
       },
     );
 
-    const data = await res.json();
+    const data = (await res.json()) ?? " ";
     console.log("task added", data.newTask);
     // setTasks(Array.isArray(data.tasks) ? data.tasks : []);
     setTasks([...tasks, { ...data.newTask }]);

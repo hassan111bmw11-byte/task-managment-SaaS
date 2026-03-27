@@ -12,7 +12,7 @@ export const ProjectProvider = ({ children }) => {
         const response = await fetch(
           "https://demo-rrxv.onrender.com/allProjects",
         );
-        const data = await response.json();
+        const data = await response.json() ?? " ";
         setProjects(data);
       } catch (error) {
         console.error("Error fetching projects:", error);
