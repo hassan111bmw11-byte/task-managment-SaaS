@@ -7,7 +7,6 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import FolderIcon from "@mui/icons-material/Folder";
 
 import NumberCards from "../components/CardsNumbers";
-import { Task } from "@mui/icons-material";
 
 export default function DashboardNumberCard() {
   const { tasks } = useContext(TaskContext);
