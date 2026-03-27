@@ -17,7 +17,7 @@ export default function SideMenu() {
   const [user, setUser] = useState("");
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("data") ?? "  ";
+    const storedUser = localStorage.getItem("data") || [];
     const parsedUser = storedUser ? JSON.parse(storedUser) : null;
     setUser(parsedUser.data.userName);
   }, []);

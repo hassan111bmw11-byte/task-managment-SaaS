@@ -20,7 +20,7 @@ export default function RegisterPage() {
         }),
       });
 
-      const data = (await res.json()) ?? "";
+      const data = (await res.json()) || [];
       localStorage.setItem("data", JSON.stringify(data));
 
       if (res.ok && data.status) {

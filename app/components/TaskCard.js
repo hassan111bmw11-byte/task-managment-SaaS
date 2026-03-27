@@ -30,7 +30,7 @@ export default function TasksCard({ task, projectId }) {
       `https://demo-rrxv.onrender.com/projects/${projectId}/tasks/${taskId}/status`,
       { method: "PATCH" },
     );
-    const data = await res.json() ?? " ";
+    const data = (await res.json()) || [];
     setTasks((prevTasks) => {
       return prevTasks.map((task) => {
         if (task._id === taskId) {

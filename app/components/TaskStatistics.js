@@ -13,7 +13,7 @@ export default function DonutChart() {
 
   useEffect(() => {
     // هذا الكود سيعمل فقط في المتصفح
-    const user = JSON.parse(localStorage.getItem("data")) ?? " ";
+    const user = JSON.parse(localStorage.getItem("data"))  || [];
     setUsers(user);
   }, []);
 
