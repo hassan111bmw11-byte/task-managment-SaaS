@@ -31,11 +31,11 @@ export default function Login() {
 
       const data = await res.json()  || [];
       localStorage.setItem("data", JSON.stringify(data))  || [];
-      if (res.ok && data.status) {
+      if (res.ok && data?.status) {
         console.log("login successfully");
         window.location.href = "./MainContent/dashboard";
       } else {
-        alert(data.message || "Error with email or password");
+        alert(data?.message || "Error with email or password");
       }
     } catch (error) {
       console.error("Fetch error:", error);

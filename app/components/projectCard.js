@@ -46,9 +46,9 @@ export default function ProjectCard() {
       if (!data) {
         return <p>loading...</p>;
       }
-      console.log(user.data._id);
-      const pro = data.filter((p) => {
-        return p.owner === user.data._id;
+      console.log(user.data?._id);
+      const pro = data?.filter((p) => {
+        return p.owner === user.data?._id;
       });
 
       console.log(pro);
@@ -65,7 +65,7 @@ export default function ProjectCard() {
     try {
       // localStorage.getItem("user");
       const user = JSON.parse(localStorage.getItem("data")) || [];
-      const ownerId = user.data._id;
+      const ownerId = user.data?._id;
       const res = await fetch(
         `https://demo-rrxv.onrender.com/create/${ownerId}`,
         {
@@ -80,7 +80,7 @@ export default function ProjectCard() {
       );
       const data = (await res.json()) || [];
       if (!data){return <p>loading...</p>}
-      console.log(data);
+      // console.log(data);
       setProjects([...projects, data]);
       setProjectInputValue("");
     } catch (error) {

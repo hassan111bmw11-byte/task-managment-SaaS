@@ -18,7 +18,7 @@ export default function DonutChart() {
     setUsers(user);
   }, []);
 
-  const userId = users.data._id;
+  const userId = users.data?._id;
   const curentProject = projects.filter((project) => project.owner === userId);
   console.log("curentProject", curentProject);
   console.log("all tasks: ", tasks);

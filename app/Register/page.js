@@ -23,7 +23,7 @@ export default function RegisterPage() {
       const data = (await res.json()) || [];
       localStorage.setItem("data", JSON.stringify(data));
 
-      if (res.ok && data.status) {
+      if (res.ok && data?.status) {
         // التحقق من وجود التوكين قبل التخزين
         const token = data?.data?.token || [];
         if (token) {
@@ -33,7 +33,7 @@ export default function RegisterPage() {
         }
       } else {
         // إظهار رسالة الخطأ القادمة من السيرفر إن وجدت
-        alert(data.message || "حدث خطأ أثناء التسجيل");
+        alert(data?.message || "حدث خطأ أثناء التسجيل");
       }
     } catch (error) {
       console.error("Network Error:", error);

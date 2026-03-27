@@ -37,7 +37,7 @@ export default function TasksCard({ task, projectId }) {
     setTasks((prevTasks) => {
       return prevTasks.map((task) => {
         if (task._id === taskId) {
-          return { ...task, status: data.status };
+          return { ...task, status: data?.status };
         }
         return task;
       });

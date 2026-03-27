@@ -61,9 +61,9 @@ export default function Page({ params }) {
     );
 
     const data = (await res.json())  || [];
-    console.log("task added", data.newTask);
-    // setTasks(Array.isArray(data.tasks) ? data.tasks : []);
-    setTasks([...tasks, { ...data.newTask }]);
+    console.log("task added", data?.newTask);
+    // setTasks(Array.isArray(data?.tasks) ? data.tasks : []);
+    setTasks([...tasks, { ...data?.newTask }]);
     setInputValue("");
   };
   // update task status
@@ -76,7 +76,7 @@ export default function Page({ params }) {
     setTasks((prevTasks) => {
       return prevTasks.map((task) => {
         if (task._id === taskId) {
-          return { ...task, status: data.status };
+          return { ...task, status: data?.status };
         }
         return task;
       });
