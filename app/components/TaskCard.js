@@ -31,6 +31,9 @@ export default function TasksCard({ task, projectId }) {
       { method: "PATCH" },
     );
     const data = (await res.json()) || [];
+    if (!data) {
+      return <p>loading...</p>;
+    }
     setTasks((prevTasks) => {
       return prevTasks.map((task) => {
         if (task._id === taskId) {

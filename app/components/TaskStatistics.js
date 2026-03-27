@@ -1,3 +1,4 @@
+"use client";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { useContext, useEffect, useState } from "react";
 import { TaskContext } from "./tasksApi";
@@ -13,7 +14,7 @@ export default function DonutChart() {
 
   useEffect(() => {
     // هذا الكود سيعمل فقط في المتصفح
-    const user = JSON.parse(localStorage.getItem("data"))  || [];
+    const user = JSON.parse(localStorage.getItem("data")) || [];
     setUsers(user);
   }, []);
 
@@ -29,7 +30,7 @@ export default function DonutChart() {
   const todoTasks = tasks.filter((task) => task.status === "Todo").length;
   const DoingTasks = tasks.filter((task) => task.status === "Doing").length;
 
-  const data = [
+  const dat = [
     { label: "Done", value: doneTasks, color: "green" },
     { label: "Doing", value: DoingTasks, color: "blue" },
     { label: "Todo", value: todoTasks, color: "orange" },
@@ -51,7 +52,7 @@ export default function DonutChart() {
       <PieChart
         className="m-4 text-white"
         series={[
-          { innerRadius: 50, outerRadius: 100, data, arcLabel: "label" },
+          { innerRadius: 50, outerRadius: 100, dat, arcLabel: "label" },
         ]}
         sx={{
           "& .MuiPieArcLabel-root": {

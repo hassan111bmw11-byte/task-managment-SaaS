@@ -43,6 +43,9 @@ export default function ProjectCard() {
 
       const data = (await response.json()) || [];
       const user = JSON.parse(localStorage.getItem("data")) || [];
+      if (!data) {
+        return <p>loading...</p>;
+      }
       console.log(user.data._id);
       const pro = data.filter((p) => {
         return p.owner === user.data._id;
@@ -60,7 +63,7 @@ export default function ProjectCard() {
   // add project
   async function HandelAddProject() {
     try {
-      localStorage.getItem("user");
+      // localStorage.getItem("user");
       const user = JSON.parse(localStorage.getItem("data")) || [];
       const ownerId = user.data._id;
       const res = await fetch(
@@ -76,6 +79,7 @@ export default function ProjectCard() {
         },
       );
       const data = (await res.json()) || [];
+      if (!data){return <p>loading...</p>}
       console.log(data);
       setProjects([...projects, data]);
       setProjectInputValue("");
@@ -91,7 +95,10 @@ export default function ProjectCard() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Project deleted", data);
+        if(!data){
+          return <p>loading...</p>
+        }
+        // console.log("Project deleted", data);
         setProjects(projects.filter((project) => project._id !== id));
       })
       .catch((err) => {

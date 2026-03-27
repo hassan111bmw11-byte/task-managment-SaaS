@@ -25,7 +25,7 @@ export default function RegisterPage() {
 
       if (res.ok && data.status) {
         // التحقق من وجود التوكين قبل التخزين
-        const token = data?.data?.token;
+        const token = data?.data?.token || [];
         if (token) {
           localStorage.setItem("token", token);
           // التوجيه (يفضل استخدام useNavigate)

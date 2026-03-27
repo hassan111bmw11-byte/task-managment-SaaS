@@ -72,7 +72,7 @@ export default function Page({ params }) {
       `https://demo-rrxv.onrender.com/projects/${projectId}/tasks/${taskId}/status`,
       { method: "PATCH" },
     );
-    const data = await res.json();
+    const data = await res.json() || [];
     setTasks((prevTasks) => {
       return prevTasks.map((task) => {
         if (task._id === taskId) {
@@ -133,7 +133,7 @@ export default function Page({ params }) {
         body: JSON.stringify({ title: updateInputValue }),
       },
     );
-    const data = await response.json();
+    const data = await response.json() || [];
     console.log("update done", data);
 
     setTasks((prev) =>
