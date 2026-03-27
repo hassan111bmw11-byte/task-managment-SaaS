@@ -40,7 +40,7 @@ export default function Page({ params }) {
       const response = await fetch(
         `https://demo-rrxv.onrender.com/projects/${projectId}/tasks`,
       );
-      const result = await response.json();
+      const result = await response?.json();
       console.log("00000--------", result);
       setTasks(result);
     };
@@ -60,7 +60,7 @@ export default function Page({ params }) {
       },
     );
 
-    const data = (await res.json())  || [];
+    const data = (await res?.json())  || [];
     console.log("task added", data?.newTask);
     // setTasks(Array.isArray(data?.tasks) ? data.tasks : []);
     setTasks([...tasks, { ...data?.newTask }]);
@@ -72,10 +72,10 @@ export default function Page({ params }) {
       `https://demo-rrxv.onrender.com/projects/${projectId}/tasks/${taskId}/status`,
       { method: "PATCH" },
     );
-    const data = await res.json() || [];
+    const data = await res?.json() || [];
     setTasks((prevTasks) => {
-      return prevTasks.map((task) => {
-        if (task._id === taskId) {
+      return prevTasks?.map((task) => {
+        if (task?._id === taskId) {
           return { ...task, status: data?.status };
         }
         return task;
@@ -84,16 +84,16 @@ export default function Page({ params }) {
   }
   // filter tasks
   // todo tasks
-  const TodosTasks = tasks.filter((task) => task.status === "Todo");
+  const TodosTasks = tasks?.filter((task) => task.status === "Todo");
 
   // ===todo tasks
 
   // doing tasks
-  const DoingTasks = tasks.filter((task) => task.status === "Doing");
+  const DoingTasks = tasks?.filter((task) => task.status === "Doing");
 
   // ===doing tasks===
   // done tasks
-  const DoneTasks = tasks.filter((task) => task.status === "Done");
+  const DoneTasks = tasks?.filter((task) => task.status === "Done");
 
   // ===done tasks===
 
@@ -115,8 +115,8 @@ export default function Page({ params }) {
   function handleEditTask(id) {
     setSelectedId(id);
 
-    const task = tasks.find((task) => task._id === id);
-    setUpdateInputValue(task.title);
+    const task = tasks?.find((task) => task._id === id);
+    setUpdateInputValue(task?.title);
     setShowAddBtn("hidden");
     setShowupdateBtn("");
   }
@@ -133,7 +133,7 @@ export default function Page({ params }) {
         body: JSON.stringify({ title: updateInputValue }),
       },
     );
-    const data = await response.json() || [];
+    const data = await response?.json() || [];
     console.log("update done", data);
 
     setTasks((prev) =>
@@ -157,9 +157,9 @@ export default function Page({ params }) {
               {project?.title}
             </h1>
             <h4 className="text-gray-600 mt-4 ">
-              {tasks.length} tasks . Created at {/* project date */}
+              {tasks?.length} tasks . Created at {/* project date */}
               <span className="text-gray-600">
-                {new Date(project.createdAt).toLocaleDateString("en-US", {
+                {new Date(project?.createdAt).toLocaleDateString("en-US", {
                   day: "numeric",
                   month: "short",
                   year: "numeric",
@@ -225,16 +225,16 @@ export default function Page({ params }) {
             <h1 className="font-bold text-2xl ">
               Todo
               <span className="rounded ml-2 pl-2 pr-2 text-center bg-gray-200 text-sm">
-                {TodosTasks.length}
+                {TodosTasks?.length}
               </span>
             </h1>
             <hr className=" mt-4 w-80 border border-yellow-500"></hr>
             <div className="w-80 no-scrollbar rounded bg-zinc-200 h-90 mt-4 overflow-auto shadow">
-              {TodosTasks.map((task) => {
+              {TodosTasks?.map((task) => {
                 return (
                   <div
                     className="flex justify-between items-center p-4 shadow-lg hover:bg-gray-100 transition-all bg-white ml-1 mr-1 rounded mt-1"
-                    key={task._id}
+                    key={task?._id}
                   >
                     {/* Title & date */}
                     <div className="flex flex-col">
@@ -242,7 +242,7 @@ export default function Page({ params }) {
                         <button
                           className="pr-2"
                           onClick={() =>
-                            HandelUpdateStatus(project._id, task._id)
+                            HandelUpdateStatus(project?._id, task._id)
                           }
                         >
                           <CircleIcon sx={{ color: "#ffea00" }} />
@@ -323,16 +323,16 @@ export default function Page({ params }) {
             <h1 className="font-bold text-2xl ">
               Doing
               <span className="rounded ml-2 pl-2 pr-2 text-center bg-gray-200 text-sm">
-                {DoingTasks.length}
+                {DoingTasks?.length}
               </span>
             </h1>
             <hr className=" mt-4 w-80 border border-blue-800"></hr>
             <div className="w-80 no-scrollbar rounded bg-zinc-200 h-90 mt-4 overflow-auto shadow">
-              {DoingTasks.map((task) => {
+              {DoingTasks?.map((task) => {
                 return (
                   <div
                     className="flex justify-between items-center p-4 shadow-lg hover:bg-gray-100 transition-all bg-white ml-1 mr-1 rounded mt-1"
-                    key={task._id}
+                    key={task?._id}
                   >
                     {/* Title & date */}
                     <div className="flex flex-col">
@@ -340,15 +340,15 @@ export default function Page({ params }) {
                         <button
                           className="pr-2"
                           onClick={() =>
-                            HandelUpdateStatus(project._id, task._id)
+                            HandelUpdateStatus(project?._id, task._id)
                           }
                         >
                           <CircleIcon sx={{ color: "#0024c8" }} />
                         </button>
-                        <span className="font-bold">{task.title}</span>
+                        <span className="font-bold">{task?.title}</span>
                       </div>
                       <span className="text-gray-600 text-sm ml-8">
-                        {new Date(task.createdAt).toLocaleDateString("en-US", {
+                        {new Date(task?.createdAt).toLocaleDateString("en-US", {
                           day: "numeric",
                           month: "short",
                           year: "numeric",
@@ -363,7 +363,7 @@ export default function Page({ params }) {
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
                       onClick={(event) => {
-                        handleClick(event, task._id);
+                        handleClick(event, task?._id);
                       }}
                       className="optionBtn w-6 rounded-4xl h-fit flex justify-between items-center"
                     />
@@ -421,7 +421,7 @@ export default function Page({ params }) {
             <h1 className="font-bold text-2xl ">
               Done
               <span className="rounded ml-2 pl-2 pr-2 text-center bg-gray-200 text-sm">
-                {DoneTasks.length}
+                {DoneTasks?.length}
               </span>
             </h1>
             <hr className="mt-4 w-80 border border-green-700"></hr>
@@ -430,7 +430,7 @@ export default function Page({ params }) {
                 return (
                   <div
                     className="flex justify-between items-center p-4 hover:bg-gray-100 transition-all shadow-lg bg-white mr-1 ml-1 rounded mt-1"
-                    key={task._id}
+                    key={task?._id}
                   >
                     {/* Title & date */}
                     <div className="flex flex-col">
@@ -438,16 +438,16 @@ export default function Page({ params }) {
                         <button
                           className="pr-2"
                           onClick={() =>
-                            HandelUpdateStatus(project._id, task._id)
+                            HandelUpdateStatus(project?._id, task?._id)
                           }
                         >
                           <CheckCircleIcon sx={{ color: "#009f14" }} />
                         </button>
-                        <span className="font-bold">{task.title}</span>
+                        <span className="font-bold">{task?.title}</span>
                       </div>
 
                       <span className="text-gray-600 text-sm ml-8">
-                        {new Date(task.createdAt).toLocaleDateString("en-US", {
+                        {new Date(task?.createdAt).toLocaleDateString("en-US", {
                           day: "numeric",
                           month: "short",
                           year: "numeric",

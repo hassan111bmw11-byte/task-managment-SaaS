@@ -3,6 +3,7 @@ import ProjectProgress from "../../components/projectProgress";
 import DashboardCards from "../../components/DashboardCards";
 import { ProjectProvider } from "../../components/projectsApi";
 import { TaskProvider } from "../../components/tasksApi";
+export const dynamic = "force-dynamic";
 export default function Dashboard() {
   return (
     <ProjectProvider>

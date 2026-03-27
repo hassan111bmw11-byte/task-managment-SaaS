@@ -128,7 +128,7 @@ export default function ProjectCard() {
     setShowUpdate("hidden");
   }
 
-  const MyProjectsList = projects.map((project, index) => {
+  const MyProjectsList = projects?.map((project, index) => {
     return (
       <div
         key={index}
@@ -142,22 +142,22 @@ export default function ProjectCard() {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
           onClick={(event) => {
-            handleClick(event, project._id);
+            handleClick(event, project?._id);
           }}
           className="optionBtn w-6 rounded-4xl h-fit mt-5 flex justify-between items-center"
         />
         {/* ===option project button=== */}
         <Link
           className="z-0"
-          href={`/MainContent/projects_temp/${project._id}`}
+          href={`/MainContent/projects_temp/${project?._id}`}
         >
           <div className="flex justify-between items-center w-fit">
-            <h2 className="font-bold p-4 text-2xl ">{project.title}</h2>
+            <h2 className="font-bold p-4 text-2xl ">{project?.title}</h2>
           </div>
           <h2 className="ml-4 text-gray-600">
-            {project.tasks.length} Tasks . Created at {/* project date */}
+            {project?.tasks.length} Tasks . Created at {/* project date */}
             <span className="text-gray-600">
-              {new Date(project.createdAt).toLocaleDateString("en-US", {
+              {new Date(project?.createdAt).toLocaleDateString("en-US", {
                 day: "numeric",
                 month: "short",
                 year: "numeric",
@@ -226,8 +226,8 @@ export default function ProjectCard() {
     setShowAdd("hidden");
     setShowUpdate("flex");
     setSelectedId(id);
-    const project = projects.find((project) => project._id === id);
-    setUpdatedProject(project.title);
+    const project = projects?.find((project) => project?._id === id);
+    setUpdatedProject(project?.title);
   }
 
   return (
@@ -235,7 +235,7 @@ export default function ProjectCard() {
       <div className="flex justify-between">
         <div>
           <h1 className="text-2xl font-bold">Projects & Tasks</h1>
-          <h2 className="text-gray-600">{projects.length} project </h2>
+          <h2 className="text-gray-600">{projects?.length} project </h2>
         </div>
         {/* add button & Input */}
         <div className={`${showAdd} items-center gap-4`}>
