@@ -1,5 +1,5 @@
 import { PieChart } from "@mui/x-charts/PieChart";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { TaskContext } from "./tasksApi";
 import { ProjectContext } from "./projectsApi";
 import PieChartIcon from "@mui/icons-material/PieChart";
@@ -8,8 +8,16 @@ import CircleIcon from "@mui/icons-material/Circle";
 export default function DonutChart() {
   const { projects } = useContext(ProjectContext);
   const { tasks } = useContext(TaskContext);
-  const user = JSON.parse(localStorage.getItem("data")) ?? " ";
-  const userId = user.data._id;
+
+  const [users, setUsers] = useState(null);
+
+  useEffect(() => {
+    // هذا الكود سيعمل فقط في المتصفح
+    const user = JSON.parse(localStorage.getItem("data")) ?? " ";
+    setUsers(user);
+  }, []);
+
+  const userId = users.data._id;
   const curentProject = projects.filter((project) => project.owner === userId);
   console.log("curentProject", curentProject);
   console.log("all tasks: ", tasks);
