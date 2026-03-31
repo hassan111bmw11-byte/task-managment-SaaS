@@ -7,6 +7,7 @@ export const ProjectContext = createContext();
 export const ProjectProvider = ({ children }) => {
   const [projects, setProjects] = useState([]);
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState("");
 
   useEffect(() => {
     // 1. جلب البيانات من localStorage فوراً
@@ -18,6 +19,7 @@ export const ProjectProvider = ({ children }) => {
       // 2. جلب المشاريع باستخدام التوكن المستخرج مباشرة من الـ localStorage
       // لا ننتظر تحديث حالة الـ user لأنها ستتأخر
       const token = userInfo?.token || userInfo?.data?.token;
+      setToken(token);
 
       const getProjects = async () => {
         try {
@@ -56,7 +58,7 @@ export const ProjectProvider = ({ children }) => {
 
   return (
     <ProjectContext.Provider
-      value={{ projects, setProjects, userId, userEmail, userName ,token}}
+      value={{ projects, setProjects, userId, userEmail, userName, token }}
     >
       {children}
     </ProjectContext.Provider>
