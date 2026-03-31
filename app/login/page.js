@@ -3,25 +3,16 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function Login() {
-  const [userLogin, setUserLogin] = useState({
-    email: "",
-    password: "",
-  });
-  // let token;
-  // const getAllUser = async () => {
-  //   const res = await fetch("https://demo-rrxv.onrender.com/users");
-  //   const data = await res.json();
-  //   const token = data.map((t) => t.token)
-  //   console.log(token);
-  // };
-  // getAllUser();
-
+  const [userLogin, setUserLogin] = useState("");
   const Login = async () => {
+    const userInfo = JSON.parse(localStorage.getItem("data")) || [];
+    const token = userInfo?.data?.token;
     try {
       const res = await fetch("https://demo-rrxv.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           email: userLogin.email,
@@ -29,8 +20,8 @@ export default function Login() {
         }),
       });
 
-      const data = await res.json()  || [];
-      localStorage.setItem("data", JSON.stringify(data))  || [];
+      const data = (await res.json()) || [];
+      // localStorage.setItem("data", JSON.stringify(data))  || [];
       if (res.ok && data?.status) {
         console.log("login successfully");
         window.location.href = "./MainContent/dashboard";

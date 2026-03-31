@@ -7,73 +7,62 @@ import PieChartIcon from "@mui/icons-material/PieChart";
 import CircleIcon from "@mui/icons-material/Circle";
 
 export default function DonutChart() {
-  const { projects } = useContext(ProjectContext);
-  const { tasks } = useContext(TaskContext);
-
-  const [users, setUsers] = useState(null);
+  const { projects = [] } = useContext(ProjectContext) ?? []; // ضمان قيمة افتراضية
+  const { tasks = [] } = useContext(TaskContext);       // ضمان قيمة افتراضية
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    // هذا الكود سيعمل فقط في المتصفح
-    const user = JSON.parse(localStorage.getItem("data")) || [];
-    setUsers(user);
+    const storedData = localStorage.getItem("data");
+    if (storedData) {
+      const parsed = JSON.parse(storedData);
+      // تأكد من تخزين الـ ID فقط أو الكائن كاملاً حسب حاجتك
+      setUserId(parsed?.data?._id || parsed?._id); 
+    }
   }, []);
 
-  const userId = users.data?._id;
-  const curentProject = projects.filter((project) => project.owner === userId);
-  console.log("curentProject", curentProject);
-  console.log("all tasks: ", tasks);
-  const totalTasks = tasks.filter((task) => {
-    if (task.project === curentProject) return task;
-  });
-  console.log("total task: ", totalTasks);
-  const doneTasks = tasks.filter((task) => task.status === "Done").length;
-  const todoTasks = tasks.filter((task) => task.status === "Todo").length;
-  const DoingTasks = tasks.filter((task) => task.status === "Doing").length;
+  // تصفية المشاريع والمهام بأمان
+  const curentProjects =  (projects && Array.isArray(projects)) 
+  ? projects?.filter((p) => p.owner === userId) : " fffffff";
+  const currentProjectIds =   (curentProjects && Array.isArray(curentProjects)) 
+  ?  curentProjects.map(p => p._id) : "ewwwwew";
 
-  const dat = [
-    { label: "Done", value: doneTasks, color: "green" },
-    { label: "Doing", value: DoingTasks, color: "blue" },
-    { label: "Todo", value: todoTasks, color: "orange" },
+  const totalTasks = tasks?.filter((task) => currentProjectIds.includes(task.project));
+  
+  // حساب الحالات بناءً على المهام المفلترة (أو كل المهام حسب رغبتك)
+  const doneTasks = totalTasks?.filter((t) => t.status === "Done").length;
+  const todoTasks = totalTasks?.filter((t) => t.status === "Todo").length;
+  const doingTasks = totalTasks?.filter((t) => t.status === "Doing").length;
+
+  const chartData = [
+    { id: 0, value: doneTasks, label: "Done", color: "green" },
+    { id: 1, value: doingTasks, label: "Doing", color: "blue" },
+    { id: 2, value: todoTasks, label: "Todo", color: "orange" },
   ];
 
-  const settings = {
-    width: 200,
-    height: 200,
-    hideLegend: true,
-    label: "",
-  };
+  if (!userId) return <div className="p-4">Loading User Data...</div>;
 
   return (
-    <div className="rounded-2xl bg-white w-fit  p-4 h-80 ml-4">
+    <div className="rounded-2xl bg-white w-fit p-4 h-80 ml-4">
       <h1 className="font-bold">
-        {" "}
         <PieChartIcon sx={{ color: "blueviolet" }} /> Task Statistics
       </h1>
       <PieChart
-        className="m-4 text-white"
         series={[
-          { innerRadius: 50, outerRadius: 100, dat, arcLabel: "label" },
+          {
+            data: chartData, // تأكد أنها data وليست dat
+            innerRadius: 50,
+            outerRadius: 100,
+            paddingAngle: 2,
+          }
         ]}
-        sx={{
-          "& .MuiPieArcLabel-root": {
-            fill: "white",
-            fontSize: 16,
-            fontWeight: "bold",
-          },
-        }}
-        {...settings}
+        width={200}
+        height={200}
+        slotProps={{ legend: { hidden: true } }}
       />
-      <div className="flex justify-center gap-4">
-        {" "}
-        <span>
-          <CircleIcon sx={{ color: "orange" }} /> Todo
-        </span>
-        <span>
-          <CircleIcon sx={{ color: "blue" }} /> Doing
-        </span>
-        <span>
-          <CircleIcon sx={{ color: "green" }} /> Done
-        </span>
+      <div className="flex justify-center gap-4 mt-2 text-sm">
+        <span><CircleIcon sx={{ color: "orange", fontSize: 12 }} /> Todo</span>
+        <span><CircleIcon sx={{ color: "blue", fontSize: 12 }} /> Doing</span>
+        <span><CircleIcon sx={{ color: "green", fontSize: 12 }} /> Done</span>
       </div>
     </div>
   );

@@ -22,10 +22,11 @@ export default function RegisterPage() {
 
       const data = (await res.json()) || [];
       localStorage.setItem("data", JSON.stringify(data));
-
+      
       if (res.ok && data?.status) {
         // التحقق من وجود التوكين قبل التخزين
         const token = data?.data?.token || [];
+        console.log(token)
         if (token) {
           localStorage.setItem("token", token);
           // التوجيه (يفضل استخدام useNavigate)

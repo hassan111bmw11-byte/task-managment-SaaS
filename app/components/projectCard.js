@@ -6,9 +6,10 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 // React Hooks
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContex, useContext } from "react";
+import { ProjectContext } from "./projectsApi";
+import { TaskContext } from "./tasksApi";
 import Link from "next/link";
-import { Token } from "@mui/icons-material";
 
 export default function ProjectCard() {
   // option menu
@@ -31,33 +32,18 @@ export default function ProjectCard() {
   const [showAdd, setShowAdd] = useState("flex");
 
   // ===projects=====
-  const [projects, setProjects] = useState([]);
+  const { projects, setProjects } = useContext(ProjectContext) ?? {};
+  const { tasks, SetTasks } = useContext(TaskContext);
   // update project state
   const [updatedProject, setUpdatedProject] = useState([]);
   useEffect(() => {
     // get data
     async function getProjects() {
-      const response = await fetch(
-        "https://demo-rrxv.onrender.com/allProjects",
-      );
-
-      const data = (await response.json()) || [];
-      const user = JSON.parse(localStorage.getItem("data")) || [];
-      if (!data) {
-        return <p>loading...</p>;
-      }
-      console.log(user?.data?._id);
-      const pro = data?.filter((p) => {
-        return p.owner === user?.data?._id;
-      });
-
-      console.log(pro);
-
-      console.log("Data has been returned");
-      setProjects(pro || []);
+      setProjects(projects || []);
     }
 
     getProjects();
+    console.log(projects);
   }, []);
 
   // add project
@@ -79,7 +65,9 @@ export default function ProjectCard() {
         },
       );
       const data = (await res.json()) || [];
-      if (!data){return <p>loading...</p>}
+      if (!data) {
+        return <p>loading...</p>;
+      }
       // console.log(data);
       setProjects([...projects, data]);
       setProjectInputValue("");
@@ -95,8 +83,8 @@ export default function ProjectCard() {
     })
       .then((res) => res.json())
       .then((data) => {
-        if(!data){
-          return <p>loading...</p>
+        if (!data) {
+          return <p>loading...</p>;
         }
         // console.log("Project deleted", data);
         setProjects(projects.filter((project) => project._id !== id));
@@ -128,96 +116,107 @@ export default function ProjectCard() {
     setShowUpdate("hidden");
   }
 
-  const MyProjectsList = projects?.map((project, index) => {
-    return (
-      <div
-        key={index}
-        className="mt-4 p-4 pro-card flex justify-between flex-row-reverse   w-md h-50 shadow-2xl text-black bg-white rounded"
-      >
-        {/* option project button*/}
-
-        <MoreHorizIcon
-          id="basic-button"
-          aria-controls={open ? "basic-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          onClick={(event) => {
-            handleClick(event, project?._id);
-          }}
-          className="optionBtn w-6 rounded-4xl h-fit mt-5 flex justify-between items-center"
-        />
-        {/* ===option project button=== */}
-        <Link
-          className="z-0"
-          href={`/MainContent/projects_temp/${project?._id}`}
-        >
-          <div className="flex justify-between items-center w-fit">
-            <h2 className="font-bold p-4 text-2xl ">{project?.title}</h2>
-          </div>
-          <h2 className="ml-4 text-gray-600">
-            {project?.tasks.length} Tasks . Created at {/* project date */}
-            <span className="text-gray-600">
-              {new Date(project?.createdAt).toLocaleDateString("en-US", {
-                day: "numeric",
-                month: "short",
-                year: "numeric",
-              })}
-            </span>
-            {/* ===project date=== */}
-          </h2>
-          {/* Users Info */}
-          <div className="mt-4 ml-4 flex items-center gap-4 text-gray-600">
-            <Avatar /> Demo user
-          </div>
-        </Link>
-
-        {/* project popover Delete & Edit menu*/}
-        <Menu
-          id="demo-positioned-menu"
-          aria-labelledby="demo-positioned-button"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "left",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "left",
-          }}
-        >
-          <MenuItem
-            onClick={() => {
-              HandelUpdateclick(selectedId);
-            }}
-            sx={{
-              color: "primary.main",
-              fontWeight: "bold",
-            }}
+  const MyProjectsList =
+    projects && Array.isArray(projects) ? (
+      projects?.map((project, index) => {
+        return (
+          <div
+            key={index}
+            className="mt-4 p-4 pro-card flex justify-between flex-row-reverse  w-md h-50 shadow-2xl text-black bg-white rounded-2xl"
           >
-            Edit
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              HandelDeleteProject(selectedId);
-            }}
-            sx={{
-              color: "error.main",
-              fontWeight: "bold",
-            }}
-          >
-            Delete
-          </MenuItem>
-          <MenuItem sx={{ fontWeight: "bold" }} onClick={handleClose}>
-            Cancel
-          </MenuItem>
-        </Menu>
+            {/* option project button*/}
 
-        {/* ===project popover Delete & Edit menu===*/}
+            <MoreHorizIcon
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={(event) => {
+                handleClick(event, project?._id);
+              }}
+              className="optionBtn w-6 rounded-4xl h-fit mt-5 flex justify-between items-center"
+            />
+            {/* ===option project button=== */}
+            <Link
+              className="z-0"
+              href={`/MainContent/projects_temp/${project?._id}`}
+            >
+              <div className="flex justify-between items-center w-fit">
+                <h2 className="font-bold p-4 text-2xl ">{project?.title}</h2>
+              </div>
+              <h2 className="ml-4 text-gray-600">
+                {tasks.filter((task) => task.project === project._id).length}{" "}
+                Tasks Tasks . Created at {/* project date */}
+                <span className="text-gray-600">
+                  {new Date(project?.createdAt).toLocaleDateString("en-US", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </span>
+                {/* ===project date=== */}
+              </h2>
+              {/* Users Info */}
+              <div className="mt-4 ml-4 flex items-center gap-4 text-gray-600">
+                <Avatar /> Demo user
+              </div>
+            </Link>
+
+            {/* project popover Delete & Edit menu*/}
+            <Menu
+              id="demo-positioned-menu"
+              aria-labelledby="demo-positioned-button"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+            >
+              <MenuItem
+                onClick={() => {
+                  HandelUpdateclick(selectedId);
+                }}
+                sx={{
+                  color: "primary.main",
+                  fontWeight: "bold",
+                }}
+              >
+                Edit
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  HandelDeleteProject(selectedId);
+                }}
+                sx={{
+                  color: "error.main",
+                  fontWeight: "bold",
+                }}
+              >
+                Delete
+              </MenuItem>
+              <MenuItem sx={{ fontWeight: "bold" }} onClick={handleClose}>
+                Cancel
+              </MenuItem>
+            </Menu>
+
+            {/* ===project popover Delete & Edit menu===*/}
+          </div>
+        );
+      })
+    ) : (
+      // هذه الرسالة ستظهر للمستخدم الجديد بدلاً من الشاشة البيضاء
+      <div className="text-center p-10 text-gray-500">
+        <p className="text-xl">
+          لا توجد مشاريع حالياً. ابدأ بإضافة مشروعك الأول!
+        </p>
       </div>
     );
-  });
 
   // event handeler
 

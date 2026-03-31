@@ -1,14 +1,18 @@
 "use client";
-import { useEffect, useState, use } from "react";
-
+import { useEffect, useState, use, useContext } from "react";
+import { useRouter } from "next/navigation";
+import { TaskContext } from "@/app/components/tasksApi";
 // mui Icons
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CircleIcon from "@mui/icons-material/Circle";
+import { ProjectContext } from "@/app/components/projectsApi";
 
 export default function Page({ params }) {
+  const router = useRouter();
+
   // option menu
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -18,7 +22,7 @@ export default function Page({ params }) {
     setSelectedId(_id);
   };
   const handleClose = () => {
-    setAnchorEl(null);
+    setAnchorEl(false);
   };
   // ==option menu==
 
@@ -28,43 +32,35 @@ export default function Page({ params }) {
   const [inputValue, setInputValue] = useState("");
   const [updateInputValue, setUpdateInputValue] = useState("");
   const [selectedId, setSelectedId] = useState(null);
-  const [tasks, setTasks] = useState([]);
-  const [project, setProject] = useState([]);
+  const { tasks, setTasks } = useContext(TaskContext);
+
+  const { projects } = useContext(ProjectContext);
+  const projectTasks = tasks.filter((task) => task.project === projectId);
 
   // show btn
   const [showupdateBtn, setShowupdateBtn] = useState("hidden");
   const [showAddBtn, setShowAddBtn] = useState("");
 
-  useEffect(() => {
-    const getprojects = async () => {
-      const response = await fetch(
-        `https://demo-rrxv.onrender.com/projects/${projectId}/tasks`,
-      );
-      const result = await response?.json();
-      console.log("00000--------", result);
-      setTasks(result);
-    };
-    getprojects();
-  }, [projectId]);
-
   // add a new task
   const addTask = async () => {
+    if (!inputValue.trim()) return; // منع إضافة مهام فارغة
+
     const res = await fetch(
       `https://demo-rrxv.onrender.com/createTasks/${projectId}/tasks`,
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title: inputValue }),
       },
     );
 
-    const data = (await res?.json())  || [];
-    console.log("task added", data?.newTask);
-    // setTasks(Array.isArray(data?.tasks) ? data.tasks : []);
-    setTasks([...tasks, { ...data?.newTask }]);
-    setInputValue("");
+    if (res.ok) {
+      const data = await res.json();
+      // تأكد من هيكلة البيانات القادمة من السيرفر (data.newTask أو data مباشرة)
+      const newTask = data?.newTask || data;
+      setTasks((prev) => [...prev, newTask]);
+      setInputValue("");
+    }
   };
   // update task status
   async function HandelUpdateStatus(projectId, taskId) {
@@ -72,7 +68,7 @@ export default function Page({ params }) {
       `https://demo-rrxv.onrender.com/projects/${projectId}/tasks/${taskId}/status`,
       { method: "PATCH" },
     );
-    const data = await res?.json() || [];
+    const data = (await res?.json()) || [];
     setTasks((prevTasks) => {
       return prevTasks?.map((task) => {
         if (task?._id === taskId) {
@@ -83,19 +79,9 @@ export default function Page({ params }) {
     });
   }
   // filter tasks
-  // todo tasks
-  const TodosTasks = tasks?.filter((task) => task.status === "Todo");
-
-  // ===todo tasks
-
-  // doing tasks
-  const DoingTasks = tasks?.filter((task) => task.status === "Doing");
-
-  // ===doing tasks===
-  // done tasks
-  const DoneTasks = tasks?.filter((task) => task.status === "Done");
-
-  // ===done tasks===
+  const TodosTasks = projectTasks.filter((task) => task.status === "Todo");
+  const DoingTasks = projectTasks.filter((task) => task.status === "Doing");
+  const DoneTasks = projectTasks.filter((task) => task.status === "Done");
 
   // ====filter tasks====
 
@@ -104,21 +90,16 @@ export default function Page({ params }) {
     fetch(`https://demo-rrxv.onrender.com/projects/${projectId}/tasks/${id}`, {
       method: "DELETE",
     })
-      .then((res) => res.json())
-      .then(() => {
-        setTasks((prev) => prev.filter((task) => task._id !== id));
+      .then((res) => {
+        if (res.ok) {
+          // تحديث الحالة المحلية لحذف العنصر من الشاشة فوراً
+          setTasks((prev) => prev.filter((task) => task._id !== id));
+        }
+      })
+      .catch((err) => console.log("Error deleting task:", err))
+      .finally(() => {
+        handleClose(); // إغلاق القائمة بعد الانتهاء
       });
-
-    handleClose();
-  }
-  // update tasks title
-  function handleEditTask(id) {
-    setSelectedId(id);
-
-    const task = tasks?.find((task) => task._id === id);
-    setUpdateInputValue(task?.title);
-    setShowAddBtn("hidden");
-    setShowupdateBtn("");
   }
 
   async function HandelUpdateTask(id) {
@@ -133,7 +114,7 @@ export default function Page({ params }) {
         body: JSON.stringify({ title: updateInputValue }),
       },
     );
-    const data = await response?.json() || [];
+    const data = (await response?.json()) || [];
     console.log("update done", data);
 
     setTasks((prev) =>
@@ -146,6 +127,8 @@ export default function Page({ params }) {
     setShowupdateBtn("hidden");
     setUpdateInputValue("");
   }
+  const currentProject = projects.filter((p) => p._id === projectId);
+  console.log("projects>>>>>>>>>", currentProject);
   return (
     <div className="bg-zinc-200 p-10  w-screen h-screen flex justify-center">
       <div className="bg-white p-4 rounded-lg h-145  w-5xl shadow-2xl ">
@@ -153,17 +136,20 @@ export default function Page({ params }) {
         <div className="flex justify-between items-center ">
           {/* project title and date  */}
           <div>
-            <h1 className="font-bold text-4xl text-shadow-mauve-800 ">
-              {project?.title}
+            <h1 className="font-bold text-4xl w-60 text-shadow-mauve-800 ">
+              {currentProject?.[0]?.title}
             </h1>
             <h4 className="text-gray-600 mt-4 ">
-              {tasks?.length} tasks . Created at {/* project date */}
+              {currentProject?.[0]?.tasks?.length} tasks . Created at{" "}
               <span className="text-gray-600">
-                {new Date(project?.createdAt).toLocaleDateString("en-US", {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                })}
+                {new Date(currentProject?.[0]?.createdAt).toLocaleDateString(
+                  "en-US",
+                  {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  },
+                )}
               </span>
               {/* ===project date=== */}
             </h4>

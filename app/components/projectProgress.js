@@ -4,17 +4,52 @@ import ProgressLine from "../components/progress";
 import TaskStatisticspie from "./TaskStatistics";
 import { useContext } from "react";
 import { ProjectContext } from "./projectsApi";
+import { TaskContext } from "./tasksApi";
+
 export default function ProjectProgress() {
   const { projects } = useContext(ProjectContext);
+  const { tasks } = useContext(TaskContext);
+  // استخدم الـ Optional Chaining للحماية من الـ undefined
+  const projectTasks =
+    tasks?.filter((task) => task.project === projects?.[0]?._id) || [];
+  const completedTasks = projectTasks.filter((task) => task.status === "Done");
+
+  const projectTasks2 =
+    tasks?.filter((task) => task.project === projects?.[1]?._id) || [];
+  // تنبيه: هنا كان لديك خطأ، كنت تستخدم projectTasks بدلاً من projectTasks2
+  const completedTasks2 = projectTasks2.filter(
+    (task) => task.status === "Done",
+  );
+
+  const projectTasks3 = projects?.[2]
+    ? tasks?.filter((task) => task.project === projects[2]._id)
+    : [];
+  const completedTasks3 = projectTasks3.filter(
+    (task) => task.status === "Done",
+  );
 
   return (
     <div className="w-7xl flex h-80 m-8">
       <div className=" bg-white w-180 rounded-2xl">
         <p className=" p-4 text-2xl pl-8">Project Overview</p>
         <div className="">
-          <ProgressLine title={projects[0]?.title} />
-          <ProgressLine title={projects[1]?.title} color="bg-green-400" />
-          <ProgressLine title={projects[2]?.title} color="bg-zinc-800" />
+          <ProgressLine
+            title={projects[0]?.title}
+            max={projectTasks.length}
+            value={completedTasks.length}
+          />
+          <ProgressLine
+            title={projects[1]?.title}
+            max={projectTasks2.length}
+            value={completedTasks2.length}
+            color="bg-green-600"
+          />
+          <ProgressLine
+            title={projects[2]?.title}
+            max={projectTasks3.length}
+            value={completedTasks3.length}
+            color="bg-orange-500"
+          />
         </div>
       </div>
       <div>

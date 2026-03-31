@@ -3,7 +3,7 @@
 
 import OtherHousesIcon from "@mui/icons-material/OtherHouses";
 import HomeIcon from "@mui/icons-material/Home";
-// import DashboardIcon from "@mui/icons-material/Dashboard";
+import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import FolderSharedIcon from "@mui/icons-material/FolderShared";
 import TaskIcon from "@mui/icons-material/Task";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -28,17 +28,11 @@ export default function SideMenu() {
         <OtherHousesIcon className="scale-150 mr-4 mb-3" /> TaskPro
       </h1>
       <hr className="text-gray-500 w-52 mt-4" />
-
-      <div className=" mt-8 font-semibold text-amber-50 ">
-        <Link href="/">
-          <nav className="hover:bg-gray-600 w-60 transition-all transition-discrete ">
-            <HomeIcon className="m-4 " />
-            Home
-          </nav>
-        </Link>
+      <label className="text-white mr-40 mt-4">Main</label>
+      <div className="ml-8 font-semibold text-amber-50 ">
         <Link href="/MainContent/dashboard">
           <nav className="hover:bg-gray-600 w-60 transition-all transition-discrete ">
-            {/* <DashboardIcon className="m-4 " /> */}
+            <SpaceDashboardIcon className="m-4 " />
             Dashboard
           </nav>
         </Link>
@@ -49,10 +43,10 @@ export default function SideMenu() {
           </nav>
         </Link>
 
-        <nav className="hover:bg-gray-600 w-60 transition-all transition-discrete ">
+        {/* <nav className="hover:bg-gray-600 w-60 transition-all transition-discrete ">
           <SettingsIcon className="m-4" />
           Settings
-        </nav>
+        </nav> */}
       </div>
       <div className="absolute bottom-8 left-4 text-amber-600">
         <hr className="text-gray-500 w-52 mt-4" />
