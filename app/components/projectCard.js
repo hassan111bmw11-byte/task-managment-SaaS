@@ -151,7 +151,7 @@ export default function ProjectCard() {
                 <h2 className="font-bold p-4 text-2xl ">{project?.title}</h2>
               </div>
               <h2 className="ml-4 text-gray-600">
-                {tasks.filter((task) => task.project === project._id).length}{" "}
+                {tasks?.filter((task) => task.project === project._id).length}{" "}
                 Tasks Tasks . Created at {/* project date */}
                 <span className="text-gray-600">
                   {new Date(project?.createdAt).toLocaleDateString("en-US", {

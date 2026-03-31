@@ -10,28 +10,29 @@ export const TaskProvider = ({ children }) => {
   useEffect(() => {
     async function getTasks() {
       const userInfo = JSON.parse(localStorage.getItem("data"));
-      setUser(userInfo);
+      setUser(userInfo); // تحديث الحالة للمكونات الأخرى
 
-      const token = user?.data?.token;
-
-      console.log("current Projects :", currentProjects);
+      // استخرج التوكن والـ ID مباشرة من userInfo وليس من user State
+      const token = userInfo?.data?.token;
       const ownerId = userInfo?.data?._id;
-      console.log(ownerId)
+
+      console.log("Token used:", token);
+      console.log("Owner ID:", ownerId);
 
       try {
         const response = await fetch(
           `https://demo-rrxv.onrender.com/allTasks/${ownerId}`,
           {
-            method: "GET", // أضفت GET كافتراض، غيرها لـ POST إذا كنت ترسل بيانات في الـ body
+            method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${token}`, // الآن التوكن لن يكون undefined
             },
           },
         );
 
         const data = await response.json();
-        console.log("tasks from tasks Api:",tasks)
+        console.log("tasks from tasks Api:", tasks);
         setTasks(data || []);
       } catch (error) {
         console.error("Error fetching tasks:", error);
