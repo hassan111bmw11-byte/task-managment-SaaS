@@ -34,7 +34,7 @@ export default function Page({ params }) {
   const [selectedId, setSelectedId] = useState(null);
   const { tasks, setTasks } = useContext(TaskContext);
 
-  const { projects } = useContext(ProjectContext);
+  const { projects, token } = useContext(ProjectContext);
   const projectTasks = tasks.filter((task) => task.project === projectId);
 
   // show btn
@@ -49,7 +49,10 @@ export default function Page({ params }) {
       `https://demo-rrxv.onrender.com/createTasks/${projectId}/tasks`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({ title: inputValue }),
       },
     );
@@ -66,7 +69,13 @@ export default function Page({ params }) {
   async function HandelUpdateStatus(projectId, taskId) {
     const res = await fetch(
       `https://demo-rrxv.onrender.com/projects/${projectId}/tasks/${taskId}/status`,
-      { method: "PATCH" },
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      },
     );
     const data = (await res?.json()) || [];
     setTasks((prevTasks) => {
@@ -89,6 +98,10 @@ export default function Page({ params }) {
   function HandelDeleteTask(id) {
     fetch(`https://demo-rrxv.onrender.com/projects/${projectId}/tasks/${id}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => {
         if (res.ok) {
@@ -110,6 +123,7 @@ export default function Page({ params }) {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ title: updateInputValue }),
       },

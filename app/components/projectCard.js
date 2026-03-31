@@ -32,7 +32,7 @@ export default function ProjectCard() {
   const [showAdd, setShowAdd] = useState("flex");
 
   // ===projects=====
-  const { projects, setProjects } = useContext(ProjectContext) ?? {};
+  const { projects, setProjects, token } = useContext(ProjectContext) ?? {};
   const { tasks, SetTasks } = useContext(TaskContext);
   // update project state
   const [updatedProject, setUpdatedProject] = useState([]);
@@ -58,6 +58,7 @@ export default function ProjectCard() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             title: projectInputValue,
@@ -80,6 +81,10 @@ export default function ProjectCard() {
   function HandelDeleteProject(id) {
     fetch(`https://demo-rrxv.onrender.com/deleteProject/${id}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {
@@ -101,6 +106,7 @@ export default function ProjectCard() {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         title: updatedProject,
