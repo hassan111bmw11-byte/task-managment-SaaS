@@ -34,8 +34,8 @@ export default function Login() {
     }
   };
   return (
-    <div className="bg-linear-to-r from-zinc-300  to-zinc-100 flex h-screen w-screen justify-center">
-      <div className="bg-white mt-20 w-90 h-120 flex rounded-tl-2xl rounded-bl-2xl flex-col justify-evenly shadow-xl p-4  ">
+    <div className="bg-linear-to-r from-blue-400 to-zinc-100 flex h-screen w-screen items-center justify-center">
+      <div className="bg-linear-to-b from-zinc-200 to-zinc-100 border-white border-b border-t border-lw-90 h-120 flex rounded-tl-2xl rounded-bl-2xl flex-col justify-evenly shadow-xl p-4  ">
         <label className="font-bold mt-8 text-center text-2xl text-black">
           Welcome Back!
         </label>
@@ -48,7 +48,7 @@ export default function Login() {
               setUserLogin({ ...userLogin, email: e.target.value });
             }}
             type="email"
-            className="border mb-2 font-bold transition duration-300 ease-in-out focus:border focus:outline-none focus:shadow-lg shadow-md border-gray-500 pl-2 h-10 rounded-lg w-80"
+            className="border-2 mb-2 font-bold transition duration-300 ease-in-out focus:border-2 focus:border-blue-400 focus:outline-none focus:shadow-lg shadow-md border-blue-500 pl-2 h-10 rounded-lg w-80"
           />
           <label className=" font-bold mb-2">Password</label>
           <input
@@ -58,12 +58,12 @@ export default function Login() {
             }}
             type="password"
             placeholder="password"
-            className="border font-bold transition duration-300 ease-in-out focus:border focus:border-blue-500 focus:outline-none focus:shadow-lg shadow-md border-gray-500 pl-2 h-10 rounded-lg w-80"
+            className="border-2 font-bold transition duration-300 ease-in-out focus:border-2 focus:border-blue-400 focus:outline-none focus:shadow-lg shadow-md border-blue-500 pl-2 h-10 rounded-lg w-80"
           />
         </div>
         <button
           onClick={Login}
-          className="bg-blue-600  w-80 mt-4 text-white text-center h-10 rounded-2xl"
+          className="bg-linear-to-b from-blue-600 to-blue-400 w-80 mt-4 text-white text-center h-10 rounded-2xl hover:bg-linear-to-t hover:from-blue-600 hover:to-blue-400 transition ease-in-out duration-500 shadow-2xl shadow-blue-600"
         >
           login
         </button>
@@ -75,7 +75,7 @@ export default function Login() {
         </label>
       </div>
       {/* illlustration */}
-      <div className="bg-blue-600 mt-20 w-90 h-120 rounded-tr-2xl rounded-br-2xl flex flex-col justify-evenly shadow-2xl p-4  ">
+      <div className="border-white border-b border-t border-r bg-linear-to-b from-blue-600 to-blue-500 w-90 h-120 rounded-tr-2xl rounded-br-2xl flex flex-col justify-evenly shadow-2xl p-4  ">
         <h1 className="font-bold text-center text-white text-2xl">
           Login To Your Account
         </h1>
