@@ -245,7 +245,7 @@ export default function ProjectCard() {
         {/* add button & Input */}
         <div className={`${showAdd} items-center gap-4`}>
           <input
-            value={projectInputValue}
+            value={projectInputValue || ""}
             onChange={(e) => {
               setProjectInputValue(e.target.value);
             }}
@@ -270,7 +270,7 @@ export default function ProjectCard() {
 
         <div className={`${showUpdate} items-center gap-4`}>
           <input
-            value={updatedProject}
+            value={updatedProject || ""}
             onChange={(e) => {
               setUpdatedProject(e.target.value);
             }}

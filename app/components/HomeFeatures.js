@@ -1,19 +1,20 @@
 // import DashboardIcon from "@mui/icons-material/Dashboard";
 import ViewKanbanIcon from "@mui/icons-material/ViewKanban";
 import ListAltIcon from "@mui/icons-material/ListAlt";
+import DonutSmallIcon from "@mui/icons-material/DonutSmall";
 export default function HomeFeatures() {
   return (
-    <div id="Features" className="bg-white w-screen h-100">
+    <div id="Features" className="bg-zinc-300 w-screen h-100">
       <h1 className="font-bold text-2xl text-gray-800 text-center mt-20">
         Key Features
       </h1>
       {/* cards */}
       <div className="flex gap-4 justify-center mt-10">
-        <div className="w-80 bg-blue-200 font-bold hover:bg-zinc-400 h-45 p-5 flex gap-4 flex-col justify-center items-center shadow-[0_0_50px_1px_rgba(0,0,0,0.20)] shadow-blue-500 transition-all duration-500 ease rounded-2xl">
+        <div className="w-80 bg-white/30 backdrop-blur-md  border-white/90  p-6  font-bold hover:bg-zinc-400 h-45 p-5 flex gap-4 flex-col justify-center items-center border border-white shadow-[0_0_40px_1px_rgba(0,0,0,0.20)] shadow-blue-400 transition-all duration-500 ease rounded-2xl">
           <div>
             <div className="flex items-center gap-4">
               <div className="bg-blue-600 p-4 w-fit h-14 rounded-2xl ">
-                {/* <DashboardIcon className="text-5xl text-white mb-5" /> */}
+                <DonutSmallIcon className="text-5xl text-white mb-5" />
               </div>
               <span className="font-bold text-2xl w-30 text-zinc-800">
                 Dashboard Overview
@@ -24,7 +25,7 @@ export default function HomeFeatures() {
             </p>
           </div>
         </div>
-        <div className="w-80 bg-purple-300 font-bold h-45 p-5 hover:bg-zinc-400 rounded-2xl shadow-[0_0_50px_1px_rgba(0,0,0,0.20)] shadow-purple-600  transition-all duration-500 ease">
+        <div className="w-80 bg-white/30 backdrop-blur-md border-white/90 font-bold h-45 p-5 hover:bg-zinc-400 rounded-2xl border border-white shadow-[0_0_40px_1px_rgba(0,0,0,0.20)] shadow-purple-500  transition-all duration-500 ease">
           {" "}
           <div>
             <div className="flex items-center gap-4">
@@ -40,7 +41,7 @@ export default function HomeFeatures() {
             </p>
           </div>
         </div>
-        <div className="w-80 bg-orange-200 hover:bg-zinc-400 font-bold h-45 p-5 rounded-2xl shadow-[0_0_50px_1px_rgba(0,0,0,0.20)] shadow-orange-500  transition-all duration-500 ease">
+        <div className="w-80 bg-white/30 backdrop-blur-md  border-white/90 hover:bg-zinc-400 font-bold h-45 p-5 rounded-2xl border border-white shadow-[0_0_40px_1px_rgba(0,0,0,0.20)] shadow-orange-400  transition-all duration-500 ease">
           {" "}
           <div>
             <div className="flex items-center gap-4">

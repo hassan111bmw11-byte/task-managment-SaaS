@@ -1,7 +1,7 @@
 import Image from "next/image";
 export default function homeGuide() {
   return (
-    <div id="Guide" className="w-full h-screen bg-white  flex flex-col items-center ">
+    <div id="Guide" className="w-full bg-white  flex flex-col items-center ">
       <div className="flex gap-80 mt-20">
         <div className=" w-58">
           {/* texts how it works */}

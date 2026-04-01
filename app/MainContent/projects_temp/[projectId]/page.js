@@ -173,7 +173,7 @@ export default function Page({ params }) {
           <div className={`${showAddBtn} flex gap-4`}>
             {/* add task input */}
             <input
-              value={inputValue}
+              value={inputValue || ""}
               onChange={(e) => {
                 setInputValue(e.target.value);
               }}
@@ -194,7 +194,7 @@ export default function Page({ params }) {
           <div className={`${showupdateBtn} flex gap-4`}>
             {/* update task input */}
             <input
-              value={updateInputValue}
+              value={updateInputValue || ""}
               onChange={(e) => {
                 setUpdateInputValue(e.target.value);
               }}

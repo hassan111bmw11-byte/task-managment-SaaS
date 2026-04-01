@@ -52,7 +52,7 @@ export default function RegisterPage() {
         />
         <label className="font-bold ">User Name</label>
         <input
-          value={user.userName}
+          value={user.userName || ""}
           onChange={(e) => {
             setUser({ ...user, userName: e.target.value });
           }}
@@ -61,7 +61,7 @@ export default function RegisterPage() {
         />
         <label className="font-bold ">Email</label>
         <input
-          value={user.email}
+          value={user.email || ""}
           onChange={(e) => {
             setUser({ ...user, email: e.target.value });
           }}
@@ -71,7 +71,7 @@ export default function RegisterPage() {
         />
         <label className="font-bold ">Password</label>
         <input
-          value={user.password}
+          value={user.password || ""}
           onChange={(e) => {
             setUser({ ...user, password: e.target.value });
           }}

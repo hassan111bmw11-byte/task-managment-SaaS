@@ -42,7 +42,7 @@ export default function Login() {
         <div className="bg-re-900 flex flex-col h-40 mt-12 ">
           <label className="font-bold mb-2">Email</label>
           <input
-            value={userLogin.email}
+            value={userLogin.email || ""}
             placeholder="e,g. Your.Name@example.com"
             onChange={(e) => {
               setUserLogin({ ...userLogin, email: e.target.value });
@@ -52,7 +52,7 @@ export default function Login() {
           />
           <label className=" font-bold mb-2">Password</label>
           <input
-            value={userLogin.password}
+            value={userLogin.password || ""}
             onChange={(e) => {
               setUserLogin({ ...userLogin, password: e.target.value });
             }}
