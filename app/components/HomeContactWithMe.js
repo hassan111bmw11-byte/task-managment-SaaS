@@ -1,6 +1,6 @@
 export default function ContactwithMe() {
   return (
-    <div id="contact" className="flex items-center bg-zinc-100 w-screen  justify-center h-140">
+    <div id="contact" className="flex items-center  w-screen  justify-center h-140">
       <div className="bg-white/30 backdrop-blur-md  border-white/30 shadow-2xl flex flex-col w-100 p-8 rounded-2xl gap-4 h-100">
         <label className="text-center font-bold">contact with me</label>
         <input

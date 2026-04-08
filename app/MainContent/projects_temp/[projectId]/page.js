@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, use, useContext } from "react";
+import { useState, use, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { TaskContext } from "@/app/components/tasksApi";
 // mui Icons
@@ -9,6 +9,12 @@ import MenuItem from "@mui/material/MenuItem";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CircleIcon from "@mui/icons-material/Circle";
 import { ProjectContext } from "@/app/components/projectsApi";
+import NumberCards from "@/app/components/CardsNumbers";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import HourglassTopIcon from "@mui/icons-material/HourglassTop";
+// import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import FolderIcon from "@mui/icons-material/Folder";
+
 
 export default function Page({ params }) {
   const router = useRouter();
@@ -21,6 +27,7 @@ export default function Page({ params }) {
     setAnchorEl(event.currentTarget);
     setSelectedId(_id);
   };
+
   const handleClose = () => {
     setAnchorEl(false);
   };
@@ -89,6 +96,7 @@ export default function Page({ params }) {
   }
   // filter tasks
   const TodosTasks = projectTasks.filter((task) => task.status === "Todo");
+  const TodoingTasksLength = tasks.filter((task) => task._id === selectedId).length; 
   const DoingTasks = projectTasks.filter((task) => task.status === "Doing");
   const DoneTasks = projectTasks.filter((task) => task.status === "Done");
 
@@ -145,7 +153,7 @@ export default function Page({ params }) {
   console.log("projects>>>>>>>>>", currentProject);
   return (
     <div className="bg-zinc-200 p-10  w-screen h-screen flex justify-center">
-      <div className="bg-white p-4 rounded-lg h-145  w-5xl shadow-2xl ">
+      <div className="bg-white p-4 rounded-lg h-screen w-5xl shadow-2xl ">
         {/* project title and date and add button container */}
         <div className="flex justify-between items-center ">
           {/* project title and date  */}
@@ -214,22 +222,48 @@ export default function Page({ params }) {
             </button>
             {/* ====update button==== */}
           </div>
+          
         </div>
+        {/* dashboards cards */}
+        <div className="flex justify-betwee items-center mt-4">
+         <NumberCards
+          status="Total Tasks"
+          // numbers={tasks?.length}
+          icon={<AssignmentIcon sx={{ color: "purple" }} />}
+        />  <NumberCards
+          status="Completed"
+          numbers={DoneTasks?.length}
+          icon={<HourglassTopIcon sx={{ color: "green" }} />}
+        />
+        <NumberCards
+          status="In Progress"
+          numbers={DoingTasks?.length}
+          icon={<CheckCircleIcon sx={{ color: "blue" }} />}
+        />
+        <NumberCards
+          status="Todo"
+          numbers={TodoingTasksLength}
+          icon={<FolderIcon sx={{ color: "orange" }} />}
+        />
+        
+        </div>  
+
+        {/* ===dashboards cards=== */}
         {/* ===project title and date and add button container=== */}
         <hr className=" border-zinc-300 mt-4" />
         {/*  todo & in progres & done Tasks grid conteainer  */}
-        <div className="grid grid-cols-3 justify-center items-center ">
+        <div className="grid grid-cols-3 justify-center overflow-auto items-center ">
           {/* tasks todo */}
 
           <div className=" mt-4">
             <h1 className="font-bold text-2xl ">
               Todo
               <span className="rounded ml-2 pl-2 pr-2 text-center bg-gray-200 text-sm">
-                {TodosTasks?.length}
+                {/* {TodosTasks?.length} */}
               </span>
             </h1>
             <hr className=" mt-4 w-80 border border-yellow-500"></hr>
-            <div className="w-80 no-scrollbar rounded bg-zinc-200 h-90 mt-4 overflow-auto shadow">
+            <div className="w-80 no-scrollbar rounded bg-zinc-200  h-screen mt-4 overflow-auto shadow">
               {TodosTasks?.map((task) => {
                 return (
                   <div
@@ -242,7 +276,7 @@ export default function Page({ params }) {
                         <button
                           className="pr-2"
                           onClick={() =>
-                            HandelUpdateStatus(project?._id, task._id)
+                            HandelUpdateStatus(projectId, task._id)
                           }
                         >
                           <CircleIcon sx={{ color: "#ffea00" }} />
@@ -322,12 +356,12 @@ export default function Page({ params }) {
           <div className=" mt-4">
             <h1 className="font-bold text-2xl ">
               Doing
-              <span className="rounded ml-2 pl-2 pr-2 text-center bg-gray-200 text-sm">
+              <span className="rounded ml-2 pl-2 pr-2 text-center bg-gray-200  text-sm">
                 {DoingTasks?.length}
               </span>
             </h1>
             <hr className=" mt-4 w-80 border border-blue-800"></hr>
-            <div className="w-80 no-scrollbar rounded bg-zinc-200 h-90 mt-4 overflow-auto shadow">
+            <div className="w-80 no-scrollbar rounded bg-zinc-200 h-screen mt-4 overflow-auto shadow">
               {DoingTasks?.map((task) => {
                 return (
                   <div
@@ -340,7 +374,7 @@ export default function Page({ params }) {
                         <button
                           className="pr-2"
                           onClick={() =>
-                            HandelUpdateStatus(project?._id, task._id)
+                            HandelUpdateStatus(projectId, task._id)
                           }
                         >
                           <CircleIcon sx={{ color: "#0024c8" }} />
@@ -425,7 +459,7 @@ export default function Page({ params }) {
               </span>
             </h1>
             <hr className="mt-4 w-80 border border-green-700"></hr>
-            <div className="w-80 no-scrollbar rounded bg-zinc-200  h-90 mt-4 overflow-auto shadow">
+            <div className="w-80 no-scrollbar rounded bg-zinc-200  h-screen mt-4 overflow-auto shadow">
               {DoneTasks.map((task) => {
                 return (
                   <div
@@ -438,7 +472,7 @@ export default function Page({ params }) {
                         <button
                           className="pr-2"
                           onClick={() =>
-                            HandelUpdateStatus(project?._id, task?._id)
+                            HandelUpdateStatus(projectId, task?._id)
                           }
                         >
                           <CheckCircleIcon sx={{ color: "#009f14" }} />

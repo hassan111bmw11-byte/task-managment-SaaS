@@ -1,50 +1,50 @@
 import Image from "next/image";
 export default function homeGuide() {
   return (
-    <div id="Guide" className="w-full bg-white  flex flex-col items-center ">
+    <div id="Guide" className="w-full flex flex-col items-center h-200">
       <div className="flex gap-80 mt-20">
         <div className=" w-58">
           {/* texts how it works */}
-          <h1 className="font-bold text-2xl font-bold text-zinc-900">
-            Eveything you Need in One Place
+          <h1 className="font-bold text-2xl text-amber-50">
+            Everything you Need in One Place
           </h1>
-          <p className="w-100">
+          <p className="w-100 text-amber-100">
             All the essentail tools for task and project management in one place
           </p>
           <div className="mt-10 w-100">
-            <h2 className="font-bold font-bold text-zinc-900 text-2xl mt-8">
+            <h2 className="font-bold text-amber-50 text-2xl mt-8">
               {" "}
-              <span className="p-2 rounded-4xl text-blue-600 font-bold text-2xl">
+              <span className="p-2 rounded-4xl text-amber-50 font-bold text-2xl">
                 1
               </span>{" "}
               Create a Project
             </h2>
 
-            <p className="ml-10">
+            <p className="ml-10 text-amber-50">
               Click the 'Add New Project' button, enter your project details,and
               get started
             </p>
             <br />
-            <h2 className="font-bold font-bold text-zinc-900 text-2xl mt-8">
+            <h2 className="font-bold text-amber-50 text-2xl mt-8">
               {" "}
-              <span className="p-2 rounded-4xl text-blue-600 font-bold text-2xl">
+              <span className="p-2 rounded-4xl text-amber-50 font-bold text-2xl">
                 2
-              </span>{" "}
+              </span>
               Add your Tasks
             </h2>
-            <p className="ml-10">
+            <p className="ml-10 text-amber-50">
               Easily add tasks to your project, assign due dates, and organize
-              them in deferent stages like 'To Do', 'In Progress', and 'Done'.
+              them in different stages like 'To Do', 'In Progress', and 'Done'.
             </p>
             <br />
-            <h2 className="font-bold text-zinc-900 text-2xl mt-8">
+            <h2 className="font-bold text-amber-50 text-2xl mt-8">
               <span className="p-2 rounded-4xl text-blue-600 font-bold text-2xl">
                 3
               </span>{" "}
               Track Your Progress
             </h2>
-            <p className="ml-10">
-              Monitor your project's progress with the Kanban and Kepp every
+            <p className="ml-10 text-amber-50">
+              Monitor your project's progress with the Kanban and Keep every
               thing on track.
             </p>
           </div>
@@ -52,7 +52,7 @@ export default function homeGuide() {
           {/* ===texts how it works===*/}
         </div>
         {/* img */}
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-4">
           <Image
             src="/image3.jpg"
             alt="Hero Image"

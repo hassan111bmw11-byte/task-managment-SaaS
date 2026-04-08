@@ -1,13 +1,13 @@
 import Image from "next/image";
 export default function HomeHero() {
   return (
-    <div id="Home" className="flex bg-zinc-100 w-screen justify-center gap-20 h-122 mt-10">
+    <div id="Home" style={{background:"0D1A63"}} className="flex w-screen justify-center gap-20 h-130 mt-10">
       {/* text */}
       <div className=" h-100 w-130">
-        <h1 className="text-5xl mt-20  font-bold text-gray-800 mb-4">
+        <h1 className="text-5xl mt-20  font-bold text-amber-50 mb-4">
           Manage your tasks and Projects Efficiently
         </h1>
-        <p className="text-lg w-80 font-bold text-gray-600 mb-6">
+        <p className="text-lg w-80 font-bold text-amber-50 mb-6">
           {" "}
           powerful task and projects management to keep your work organized.
         </p>
@@ -29,7 +29,7 @@ export default function HomeHero() {
           alt="Hero Image"
           width={500}
           height={500}
-          className="object-cover mt-20 rounded-2xl h-90 shadow-2xl border"
+          className="object-cover mt-20 rounded-2xl h-90 shadow-xl shadow-amber-50 border"
         />
       </div>
     </div>

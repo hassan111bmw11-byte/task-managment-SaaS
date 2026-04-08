@@ -12,12 +12,14 @@ import NumberCards from "../components/CardsNumbers";
 export default function DashboardNumberCard() {
   const { userName } = useContext(ProjectContext);
   const { tasks } = useContext(TaskContext);
-  console.log("tasks from dashboard Card", tasks);
+
+    console.log("tasks from dashboard Card", tasks);
   const completedTasks =
     tasks?.filter((task) => task.status === "Done").length || 0;
   const DoingTasks =
     tasks?.filter((task) => task.status === "Doing").length || 0;
   const TodoTasks = tasks?.filter((task) => task.status === "Todo").length || 0;
+
   return (
     <div className=" w-258 h-50">
       <h1 className="ml-8 mt-8 text-3xl font-bold">

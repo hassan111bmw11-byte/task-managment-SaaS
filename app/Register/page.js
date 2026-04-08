@@ -44,7 +44,7 @@ export default function RegisterPage() {
   return (
     <div className="bg-linear-to-r from-blue-400  to-zinc-100 flex w-screen h-screen items-center justify-center">
       <div className="bg-linear-to-b from-zinc-200 to-zinc-100 border-white border-b border-t border-l w-90 h-120 shadow-xl p-4 flex flex-col gap-1 rounded-tl-2xl rounded-bl-2xl">
-        <h1 className="font-bold text-center mt-13 text-2xl">Welcome Back</h1>
+        <h1 className="font-bold text-center mt-13 text-2xl">Create Yuor Account</h1>
         <label className="font-bold ">Full Name</label>
         <input
           placeholder="John Cena"

@@ -22,6 +22,10 @@ export default function SideMenu() {
     setUser(parsedUser.data?.userName);
   }, []);
 
+  function Logout() {
+    window.location.href = "/";
+  }
+
   return (
     <div className="w-60 bg-gray-900 h-lvh flex flex-col items-center ">
       <h1 className="text-3xl  text-amber-50 pt-4">
@@ -51,8 +55,9 @@ export default function SideMenu() {
       <div className="absolute bottom-8 left-4 text-amber-600">
         <hr className="text-gray-500 w-52 mt-4" />
         {/* Users Info */}
-        <div className="mt-4 ml-4 flex items-center gap-4 text-gray-600">
-          <Avatar /> {user}
+        <div className="mt-4 ml-4 flex flex-col gap-4 text-gray-600">
+          <div className="flex items-center gap-4 text text-amber-50"><Avatar /> {user}</div>
+          <button onClick={Logout} className="text-gray-900 hover:bg-gray-600 hover:text-amber-50 transition-all duration-500 ease-in-out font-bold h-8 bg-amber-50 rounded-2xl">Logout</button>
         </div>
       </div>
     </div>

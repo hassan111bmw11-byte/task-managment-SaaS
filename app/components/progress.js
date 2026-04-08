@@ -22,7 +22,7 @@ export default function ProgressLine({
       <div className="w-160 pl-4 mt-4 pr-4 pt-2 h-16 ml-8 bg-zinc-300 rounded shadow-lg ">
         {/* Header */}
         <div className="flex mb-2  justify-between  items-center">
-          <h3 className="text-lg font-semibold text-gray-700">{title || "no project"}</h3>
+          <h3 className="text-lg font-semibold text-gray-700">{title || "add new project"}</h3>
           <span className="text-sm font-medium text-gray-500">
             <p>
               {value}/{max} Tasks

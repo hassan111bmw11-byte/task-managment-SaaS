@@ -4,13 +4,13 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import DonutSmallIcon from "@mui/icons-material/DonutSmall";
 export default function HomeFeatures() {
   return (
-    <div id="Features" className="bg-zinc-300 w-screen h-100">
-      <h1 className="font-bold text-2xl text-gray-800 text-center mt-20">
+    <div id="Features" className=" w-screen h-100">
+      <h1 className="font-bold text-2xl text-amber-50 text-center mt-20">
         Key Features
       </h1>
       {/* cards */}
       <div className="flex gap-4 justify-center mt-10">
-        <div className="w-80 bg-white/30 backdrop-blur-md  border-white/90  p-6  font-bold hover:bg-zinc-400 h-45 p-5 flex gap-4 flex-col justify-center items-center border border-white shadow-[0_0_40px_1px_rgba(0,0,0,0.20)] shadow-blue-400 transition-all duration-500 ease rounded-2xl">
+        <div className="w-80 bg-white/30 backdrop-blur-md  border-white/90  p-6  font-bold hover:bg-zinc-400 h-45 flex gap-4 flex-col justify-center items-center border shadow-[0_0_40px_1px_rgba(0,0,0,0.20)] shadow-blue-400 transition-all duration-500 ease rounded-2xl">
           <div>
             <div className="flex items-center gap-4">
               <div className="bg-blue-600 p-4 w-fit h-14 rounded-2xl ">

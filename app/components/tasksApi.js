@@ -38,6 +38,7 @@ export const TaskProvider = ({ children }) => {
         console.error("Error fetching tasks:", error);
       }
     }
+      console.log("tasks from dashboard Card", tasks);
 
     getTasks();
   }, []); // تأكد أن token و userLogin معرفين خارج الـ useEffect أو مضافين للمصفوفة هنا

@@ -35,11 +35,11 @@ export default function Login() {
   };
   return (
     <div className="bg-linear-to-r from-blue-400 to-zinc-100 flex h-screen w-screen items-center justify-center">
-      <div className="bg-linear-to-b from-zinc-200 to-zinc-100 border-white border-b border-t border-lw-90 h-120 flex rounded-tl-2xl rounded-bl-2xl flex-col justify-evenly shadow-xl p-4  ">
-        <label className="font-bold mt-8 text-center text-2xl text-black">
+      <div className="bg-linear-to-b from-zinc-200 to-zinc-100 border-white border-b border-t border-lw-90 h-90 flex rounded-tl-2xl rounded-bl-2xl flex-col justify-around shadow-xl p-4  ">
+        <label className="font-bold text-center text-2xl text-black">
           Welcome Back!
         </label>
-        <div className="bg-re-900 flex flex-col h-40 mt-12 ">
+        <div className="bg-re-900 flex flex-col h-40 ">
           <label className="font-bold mb-2">Email</label>
           <input
             value={userLogin.email || ""}
@@ -75,7 +75,7 @@ export default function Login() {
         </label>
       </div>
       {/* illlustration */}
-      <div className="border-white border-b border-t border-r bg-linear-to-b from-blue-600 to-blue-500 w-90 h-120 rounded-tr-2xl rounded-br-2xl flex flex-col justify-evenly shadow-2xl p-4  ">
+      <div className="border-white border-b border-t border-r bg-linear-to-b from-blue-600 to-blue-500 w-90 h-90 rounded-tr-2xl rounded-br-2xl flex flex-col justify-evenly shadow-2xl p-4  ">
         <h1 className="font-bold text-center text-white text-2xl">
           Login To Your Account
         </h1>
