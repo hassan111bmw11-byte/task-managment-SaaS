@@ -12,7 +12,7 @@ export default function HomeStats() {
       <div className="mt-8 flex justify-center gap-4">
         <div className="w-60  transition-all duration-500 ease hover:bg-zinc-400 h-30 flex flex-col justify-center items-center
         bg-white/30 backdrop-blur-md border border-white/50 rounded-xl p-6 shadow-lg">
-          <h1 className="font-bold text-red-700 text-4xl">10K+</h1>
+          <h1 className="font-bold text-amber-500 text-4xl">10K+</h1>
           <p className="mt-2  text-amber-50">Happy users</p>
         </div>
         <div className="w-60 h-30 transition-all duration-500 ease hover:bg-zinc-400 flex flex-col justify-center items-center 
