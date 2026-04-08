@@ -29,7 +29,7 @@ export default function HomeHero() {
           alt="Hero Image"
           width={500}
           height={500}
-          className="object-cover mt-20 rounded-2xl h-90 shadow-xl shadow-amber-50 border"
+          className="object-cover mt-20 rounded-2xl h-90 shadow-2xl"
         />
       </div>
     </div>

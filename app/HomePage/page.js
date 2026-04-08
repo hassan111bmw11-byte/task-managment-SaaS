@@ -9,7 +9,9 @@ import ContactwithMe from "../components/HomeContactWithMe";
 export default function landingPage() {
   return (
     // navbar
-    <div style={{ backgroundColor: "#0D1A63" }} className="w-full flex flex-col items-center">
+    <div 
+    // style={{ backgroundColor: "#0D1A63" }}
+     className="w-full flex flex-col items-center bg-linear-to-r from-blue-900 via-blue-500 to-blue-900">
       <HomeNavBar />
       <HomeHero />
       <HomeFeatures />

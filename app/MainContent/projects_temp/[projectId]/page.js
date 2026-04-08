@@ -96,7 +96,6 @@ export default function Page({ params }) {
   }
   // filter tasks
   const TodosTasks = projectTasks.filter((task) => task.status === "Todo");
-  const TodoingTasksLength = tasks.filter((task) => task._id === selectedId).length; 
   const DoingTasks = projectTasks.filter((task) => task.status === "Doing");
   const DoneTasks = projectTasks.filter((task) => task.status === "Done");
 
@@ -228,7 +227,7 @@ export default function Page({ params }) {
         <div className="flex justify-betwee items-center mt-4">
          <NumberCards
           status="Total Tasks"
-          // numbers={tasks?.length}
+          numbers={tasks?.length}
           icon={<AssignmentIcon sx={{ color: "purple" }} />}
         />  <NumberCards
           status="Completed"
@@ -242,7 +241,7 @@ export default function Page({ params }) {
         />
         <NumberCards
           status="Todo"
-          numbers={TodoingTasksLength}
+          // numbers={TodoingTasksLength}
           icon={<FolderIcon sx={{ color: "orange" }} />}
         />
         
