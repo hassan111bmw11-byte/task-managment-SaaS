@@ -159,7 +159,7 @@ export default function Page({ params }) {
   const currentProject = projects.filter((p) => p._id === projectId);
   console.log("projects>>>>>>>>>", currentProject);
   return (
-    <div className="bg-linear-to-r from-blue-900 via-blue-500 to-blue-900 p-10  w-screen h-screen flex justify-center">
+    <div className="bg-linear-to-r from-blue-900 via-blue-500 to-blue-900 p-10 overflow-hidden w-screen h-screen flex justify-center">
       <div className="bg-white p-4 rounded-lg h-screen w-5xl shadow-2xl ">
         {/* project title and date and add button container */}
         <div className="flex justify-between items-center ">

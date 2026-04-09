@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <ProjectProvider>
       <TaskProvider>
-        <div className="flex">
+        <div className="flex h-screen w-screen">
           <SideMenu />
           {children}
         </div>

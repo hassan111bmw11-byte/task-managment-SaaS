@@ -34,12 +34,17 @@ export default function ProjectCard() {
   // ===projects=====
   const { projects, setProjects, token } = useContext(ProjectContext) ?? {};
   const { tasks, SetTasks } = useContext(TaskContext);
+    const [user, setUser] = useState("");
+
   // update project state
   const [updatedProject, setUpdatedProject] = useState([]);
   useEffect(() => {
     // get data
     async function getProjects() {
       setProjects(projects || []);
+       const storedUser = localStorage.getItem("data") || [];
+    const parsedUser = storedUser ? JSON.parse(storedUser) : null;
+    setUser(parsedUser.data?.userName);
     }
 
     getProjects();
@@ -128,7 +133,7 @@ export default function ProjectCard() {
         return (
           <div
             key={index}
-            className="mt-4 mx-4 p-4 pro-card flex justify-between flex-row-reverse w-md h-50 shadow-2xl text-black bg-white rounded-2xl"
+            className="mt-4 mx-4 p-4 pro-card flex justify-between flex-row-reverse w-md h-fit shadow-2xl text-black bg-white rounded-2xl border border-zinc-400"
           >
             {/* option project button*/}
 
@@ -148,7 +153,7 @@ export default function ProjectCard() {
               href={`/MainContent/projects_temp/${project?._id}`}
             >
               <div className="flex justify-between items-center w-fit">
-                <h2 className="font-bold p-4 text-2xl ">{project?.title}</h2>
+                <h2 className="font-bold pl-4 text-2xl ">{project?.title}</h2>
               </div>
               <h2 className="ml-4 text-gray-600">
                 {tasks?.filter((task) => task.project === project._id).length}{" "}
@@ -164,7 +169,7 @@ export default function ProjectCard() {
               </h2>
               {/* Users Info */}
               <div className="mt-4 ml-4 flex items-center gap-4 text-gray-600">
-                <Avatar /> Demo user
+                <Avatar />  {user} {" "} Project's
               </div>
             </Link>
 
@@ -219,7 +224,7 @@ export default function ProjectCard() {
       // هذه الرسالة ستظهر للمستخدم الجديد بدلاً من الشاشة البيضاء
       <div className="text-center p-10 text-gray-500">
         <p className="text-xl">
-          لا توجد مشاريع حالياً. ابدأ بإضافة مشروعك الأول!
+          You have no projects yet. Add a new project to get started.
         </p>
       </div>
     );
@@ -236,7 +241,7 @@ export default function ProjectCard() {
   }
 
   return (
-    <div className="h-140 p-8 m-8  rounded-lg w-2xlg bg-white">
+    <div className="h-screen p-8 m-8 rounded-lg w-2xlg bg-white">
       <div className="flex justify-between">
         <div>
           <h1 className="text-2xl font-bold">Projects & Tasks</h1>
@@ -293,7 +298,7 @@ export default function ProjectCard() {
       </div>
       <hr className=" border-zinc-300 mt-4" />
 
-      <div className=" text-black grid grid-cols-2 gap-4 bg-zinc-300 h-100 w-fit rounded no-scrollbar overflow-auto">
+      <div className=" text-black grid grid-cols-2 h-screen w-fit rounded no-scrollbar overflow-auto">
         {MyProjectsList}
       </div>
     </div>
