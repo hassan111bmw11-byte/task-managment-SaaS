@@ -241,11 +241,11 @@ export default function ProjectCard() {
   }
 
   return (
-    <div className="h-screen p-8 m-8 rounded-lg w-2xlg bg-white">
-      <div className="flex justify-between">
+    <div className="h-screen p-8 m-8 rounded-lg w-2xlg bg-white/30">
+      <div className="flex justify-between gap-16">
         <div>
           <h1 className="text-2xl font-bold">Projects & Tasks</h1>
-          <h2 className="text-gray-600">{projects?.length} project </h2>
+          <h2 className="text-gray-800 font-bold">{projects?.length} project </h2>
         </div>
         {/* add button & Input */}
         <div className={`${showAdd} items-center gap-4`}>
@@ -255,14 +255,14 @@ export default function ProjectCard() {
               setProjectInputValue(e.target.value);
             }}
             placeholder="Add New Project"
-            className="border transition duration-300 ease-in-out focus:border-2 focus:border-blue-500 focus:outline-none focus:shadow-lg shadow-md border-blue-700 pl-2 h-10 rounded-lg w-140"
+            className="border-2 transition duration-300 ease-in-out focus:border-2 focus:border-blue-500 focus:outline-none focus:shadow-lg shadow-md border-blue-800 pl-2 h-10 rounded-lg w-140"
           />
 
           {/* add button */}
           <div>
             <button
               onClick={HandelAddProject}
-              className="bg-blue-600 addBtn shadow-md w-32 text-center h-10 text-amber-50 flex justify-center items-center rounded-lg"
+              className="bg-blue-800 addBtn shadow-md w-32 text-center h-10 text-amber-50 flex justify-center items-center rounded-lg"
             >
               + Add
             </button>
@@ -296,9 +296,9 @@ export default function ProjectCard() {
           {/*====update button====*/}
         </div>
       </div>
-      <hr className=" border-zinc-300 mt-4" />
+      <hr className=" border-zinc-400 mt-4" />
 
-      <div className=" text-black grid grid-cols-2 h-screen w-fit rounded no-scrollbar overflow-auto">
+      <div className=" text-black grid grid-cols-2 w-fit rounded no-scrollbar overflow-auto">
         {MyProjectsList}
       </div>
     </div>

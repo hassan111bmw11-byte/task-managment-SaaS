@@ -1,6 +1,5 @@
 "use client";
 import { useState, use, useContext } from "react";
-import { useRouter } from "next/navigation";
 import { TaskContext } from "@/app/components/tasksApi";
 // mui Icons
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -14,11 +13,18 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import HourglassTopIcon from "@mui/icons-material/HourglassTop";
 // import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import FolderIcon from "@mui/icons-material/Folder";
+import TaskColumn from "@/app/components/TaskCard";
+
+
+// drag & drop
+// import {useDraggable} from '@dnd-kit/react';
 
 
 export default function Page({ params }) {
-  const router = useRouter();
 
+  // const {ref} = useDraggable({
+  //   id: 'draggable',
+  // });
   // option menu
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -156,21 +162,26 @@ export default function Page({ params }) {
     setShowupdateBtn("hidden");
     setUpdateInputValue("");
   }
+      // edit click
+      const handleEditTask = (selectedId) => {
+        setSelectedId(selectedId);
+        setShowAddBtn("hidden");
+        setShowupdateBtn("flex");
+      };
   const currentProject = projects.filter((p) => p._id === projectId);
-  console.log("projects>>>>>>>>>", currentProject);
   return (
-    <div className="bg-linear-to-r from-blue-900 via-blue-500 to-blue-900 p-10 overflow-hidden w-screen h-screen flex justify-center">
-      <div className="bg-white p-4 rounded-lg h-screen w-5xl shadow-2xl ">
+    <div className="bg-linear-to-r from-blue-900 via-blue-500 to-blue-900 p-10  w-screen overflow-auto min-h-screen flex justify-center">
+      <div className="bg-white/30 p-4 rounded-lg h-screen w-5xl shadow-2xl ">
         {/* project title and date and add button container */}
-        <div className="flex justify-between items-center ">
-          {/* project title and date  */}
+        <div className="flex justify-between gap-12  items-center ">
+          {/* project title and date  */} 
           <div>
             <h1 className="font-bold text-4xl w-60 text-shadow-mauve-800 ">
               {currentProject?.[0]?.title}
             </h1>
-            <h4 className="text-gray-600 mt-4 ">
+            <h4 className="text-gray-800 font-bold mt-4 ">
               {currentProject?.[0]?.tasks?.length} tasks . Created at{" "}
-              <span className="text-gray-600">
+              <span className="text-gray-800 font-bold">
                 {new Date(currentProject?.[0]?.createdAt).toLocaleDateString(
                   "en-US",
                   {
@@ -193,14 +204,14 @@ export default function Page({ params }) {
                 setInputValue(e.target.value);
               }}
               placeholder="Add New Task "
-              className={` border transition duration-300 ease-in-out focus:border-2 focus:border-blue-500 focus:outline-none focus:shadow-lg shadow-md border-blue-700 pl-2 h-10 rounded-lg w-140`}
+              className={` border-2 transition duration-300 ease-in-out focus:border-2 focus:border-blue-500 focus:outline-none focus:shadow-lg shadow-md border-blue-800 pl-2 h-10 rounded-lg w-120`}
             />
             {/* === add task input=== */}
 
             {/* add task button */}
             <button
               onClick={addTask}
-              className={`bg-blue-600 addBtn shadow-md w-32 text-center h-10 text-amber-50 flex justify-center items-center rounded-lg`}
+              className={`bg-blue-700 addBtn shadow-md w-32 text-center h-10 text-amber-50 flex justify-center items-center rounded-lg`}
             >
               + Add
             </button>
@@ -214,7 +225,7 @@ export default function Page({ params }) {
                 setUpdateInputValue(e.target.value);
               }}
               placeholder="Update Task"
-              className={` border transition duration-300 ease-in-out focus:border-2 focus:border-blue-500 focus:outline-none focus:shadow-lg shadow-md border-blue-700 pl-2 h-10 rounded-lg w-140`}
+              className={` border transition duration-300 ease-in-out focus:border-2 focus:border-blue-500 focus:outline-none focus:shadow-lg shadow-md border-blue-700 pl-2 h-10 rounded-lg w-120`}
             />
             {/* === update task input=== */}
 
@@ -263,97 +274,20 @@ export default function Page({ params }) {
           {/* tasks todo */}
 
           <div className=" mt-4">
-            <h1 className="font-bold text-2xl ">
-              Todo
-              <span className="rounded ml-2 pl-2 pr-2 text-center bg-gray-200 text-sm">
-                {/* {TodosTasks?.length} */}
-              </span>
-            </h1>
-            <hr className=" mt-4 w-80 border border-yellow-500"></hr>
-            <div className="w-80 no-scrollbar rounded transition-all duration-500 ease-in-out bg-zinc-200  h-screen mt-4 overflow-auto shadow border border-zinc-400">
-              {TodosTasks?.map((task) => {
-                return (
-                  <div
-                    className="flex justify-between items-center p-4 shadow-lg hover:bg-gray-100 transition-all bg-white ml-1 mr-1 rounded mt-1"
-                    key={task?._id}
-                  >
-                    {/* Title & date */}
-                    <div className="flex flex-col">
-                      <div>
-                        <button
-                          className="pr-2"
-                          onClick={() =>
-                            HandelUpdateStatus(projectId, task._id)
-                          }
-                        >
-                          <CircleIcon sx={{ color: "#ffea00" }} />
-                        </button>
-                        <span className="font-bold">{task.title}</span>
-                      </div>
-                      <span className="text-gray-600 text-sm ml-8">
-                        {new Date(task.createdAt).toLocaleDateString("en-US", {
-                          day: "numeric",
-                          month: "short",
-                          year: "numeric",
-                        })}
-                      </span>
-                    </div>
-                    {/* task option button */}
 
-                    <MoreHorizIcon
-                      id="basic-button"
-                      aria-controls={open ? "basic-menu" : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? "true" : undefined}
-                      onClick={(event) => {
-                        handleClick(event, task._id);
-                      }}
-                      className="optionBtn w-6 rounded-4xl h-fit flex justify-between items-center"
-                    />
-
-                    {/* ====task option button==== */}
-
-                    {/* popover Delete & Edit menu*/}
-                    <Menu
-                      id="demo-positioned-menu"
-                      aria-labelledby="demo-positioned-button"
-                      anchorEl={anchorEl}
-                      open={open}
-                      onClose={handleClose}
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "left",
-                      }}
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "left",
-                      }}
-                      disableRestoreFocus
-                    >
-                      <MenuItem
-                        sx={{
-                          color: "primary.main",
-                          fontWeight: "bold",
-                        }}
-                        onClick={() => handleEditTask(selectedId)}
-                      >
-                        Edit
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          HandelDeleteTask(selectedId);
-                        }}
-                      >
-                        Delete
-                      </MenuItem>
-                      <MenuItem onClick={handleClose}>Cancel</MenuItem>
-                    </Menu>
-
-                    {/* popover Delete & Edit menu*/}
-                  </div>
-                );
-              })}
-            </div>
+        <div className="overflow-auto">          
+          <TaskColumn
+            title="Todo"
+            tasks={TodosTasks}
+            borderColor="border-yellow-500"
+            iconColor="#ffea00"
+            isDone={false}
+            onStatusChange={(taskId) =>
+              HandelUpdateStatus(projectId, taskId)
+            }
+            onDelete={HandelDeleteTask}
+            onEdit={handleEditTask}
+          /></div>
           </div>
 
           {/* ===tasks todo=== */}
@@ -361,97 +295,18 @@ export default function Page({ params }) {
           {/* tasks Doing */}
 
           <div className="mt-4">
-            <h1 className="font-bold text-2xl ">
-              Doing
-              <span className="rounded ml-2 pl-2 pr-2 text-center bg-gray-200  text-sm">
-                {DoingTasks?.length}
-              </span>
-            </h1>
-            <hr className=" mt-4 w-80 border border-blue-800"></hr>
-            <div className="w-80 no-scrollbar transition-all duration-500 ease-in-out rounded bg-zinc-200 h-screen mt-4 overflow-auto shadow border border-zinc-400">
-              {DoingTasks?.map((task) => {
-                return (
-                  <div
-                    className="flex justify-between items-center p-4 shadow-lg hover:bg-gray-100 transition-all bg-white ml-1 mr-1 rounded mt-1"
-                    key={task?._id}
-                  >
-                    {/* Title & date */}
-                    <div className="flex flex-col">
-                      <div>
-                        <button
-                          className="pr-2"
-                          onClick={() =>
-                            HandelUpdateStatus(projectId, task._id)
-                          }
-                        >
-                          <CircleIcon sx={{ color: "#0024c8" }} />
-                        </button>
-                        <span className="font-bold">{task?.title}</span>
-                      </div>
-                      <span className="text-gray-600 text-sm ml-8">
-                        {new Date(task?.createdAt).toLocaleDateString("en-US", {
-                          day: "numeric",
-                          month: "short",
-                          year: "numeric",
-                        })}
-                      </span>
-                    </div>
-                    {/* task option button */}
-
-                    <MoreHorizIcon
-                      id="basic-button"
-                      aria-controls={open ? "basic-menu" : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? "true" : undefined}
-                      onClick={(event) => {
-                        handleClick(event, task?._id);
-                      }}
-                      className="optionBtn w-6 rounded-4xl h-fit flex justify-between items-center"
-                    />
-
-                    {/* ====task option button==== */}
-
-                    {/* popover Delete & Edit menu*/}
-                    <Menu
-                      id="demo-positioned-menu"
-                      aria-labelledby="demo-positioned-button"
-                      anchorEl={anchorEl}
-                      open={open}
-                      onClose={handleClose}
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "left",
-                      }}
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "left",
-                      }}
-                      disableRestoreFocus
-                    >
-                      <MenuItem
-                        sx={{
-                          color: "primary.main",
-                          fontWeight: "bold",
-                        }}
-                        onClick={() => handleEditTask(selectedId)}
-                      >
-                        Edit
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          HandelDeleteTask(selectedId);
-                        }}
-                      >
-                        Delete
-                      </MenuItem>
-                      <MenuItem onClick={handleClose}>Cancel</MenuItem>
-                    </Menu>
-
-                    {/* popover Delete & Edit menu*/}
-                  </div>
-                );
-              })}
-            </div>
+          <TaskColumn
+                title="Doing"
+                tasks={DoingTasks}
+                borderColor="border-blue-800"
+                iconColor="#0024c8"
+                isDone={false}
+                onStatusChange={(taskId) =>
+                  HandelUpdateStatus(projectId, taskId)
+                }
+                onDelete={HandelDeleteTask}
+                onEdit={handleEditTask}
+              />
           </div>
 
           {/* ===tasks Doing===
@@ -459,107 +314,18 @@ export default function Page({ params }) {
           {/* tasks Done */}
 
           <div className=" mt-4">
-            <h1 className="font-bold text-2xl ">
-              Done
-              <span className="rounded ml-2 pl-2 pr-2 text-center bg-gray-200 text-sm">
-                {DoneTasks?.length}
-              </span>
-            </h1>
-            <hr className="mt-4 w-80 border border-green-700"></hr>
-            <div className="w-80 no-scrollbar rounded transition-all duration-500 ease-in-out bg-zinc-200  h-screen mt-4 overflow-auto shadow border border-zinc-400">
-              {DoneTasks.map((task) => {
-                return (
-                  <div
-                    className="flex justify-between items-center p-4 hover:bg-gray-100 transition-all duration-500 ease-in-out shadow-lg bg-white mr-1 ml-1 rounded mt-1"
-                    key={task?._id}
-                  >
-                    {/* Title & date */}
-                    <div className="flex transition-all duration-500 ease-in-out flex-col">
-                      <div>
-                        <button
-                          className="pr-2"
-                          onClick={() =>
-                            HandelUpdateStatus(projectId, task?._id)
-                          }
-                        >
-                          <CheckCircleIcon sx={{ color: "#009f14" }} />
-                        </button>
-                        <span className="font-bold">{task?.title}</span>
-                      </div>
-
-                      <span className="text-gray-600 text-sm ml-8">
-                        {new Date(task?.createdAt).toLocaleDateString("en-US", {
-                          day: "numeric",
-                          month: "short",
-                          year: "numeric",
-                        })}
-                      </span>
-                    </div>
-                    {/* task option button */}
-
-                    <MoreHorizIcon
-                      id="basic-button"
-                      aria-controls={open ? "basic-menu" : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? "true" : undefined}
-                      onClick={(event) => {
-                        handleClick(event, task._id);
-                      }}
-                      className="optionBtn w-6 rounded-4xl h-fit flex justify-between items-center"
-                    />
-
-                    {/* ====task option button==== */}
-
-                    {/* popover Delete & Edit menu*/}
-                    <Menu
-                      id="demo-positioned-menu"
-                      aria-labelledby="demo-positioned-button"
-                      anchorEl={anchorEl}
-                      open={open}
-                      onClose={handleClose}
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "left",
-                      }}
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "left",
-                      }}
-                      disableRestoreFocus
-                    >
-                      <MenuItem
-                        onClick={() => handleEditTask(selectedId)}
-                        sx={{
-                          color: "primary.main",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        Edit
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          HandelDeleteTask(selectedId);
-                        }}
-                        sx={{
-                          color: "error.main",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        Delete
-                      </MenuItem>
-                      <MenuItem
-                        onClick={handleClose}
-                        sx={{ fontWeight: "bold" }}
-                      >
-                        Cancel
-                      </MenuItem>
-                    </Menu>
-
-                    {/* popover Delete & Edit menu*/}
-                  </div>
-                );
-              })}
-            </div>
+          <TaskColumn
+                title="Done"
+                tasks={DoneTasks}
+                borderColor="border-green-500"
+                iconColor="#00ff00"
+                isDone={true}
+                onStatusChange={(taskId) =>
+                  HandelUpdateStatus(projectId, taskId)
+                }
+                onDelete={HandelDeleteTask}
+                onEdit={handleEditTask}
+              />
           </div>
 
           {/* ===tasks Done=== */}
