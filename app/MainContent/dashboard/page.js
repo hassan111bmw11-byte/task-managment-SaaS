@@ -8,10 +8,9 @@ export default function Dashboard() {
   return (
     <TaskProvider>
       <ProjectProvider>
-        <div className="bg-zinc-200 h-160 overflow-auto w-7xl">
+        <div className="flex flex-col bg-linear-to-r from-blue-900 via-blue-500 to-blue-900 text-amber-50 items-center justify-center  h-screen overflow-auto w-screen">
           <DashboardCards />
           <ProjectProgress />
-          <div className="flex ml-8 gap-4 mr-8"></div>
         </div>
       </ProjectProvider>
     </TaskProvider>

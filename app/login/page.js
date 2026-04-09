@@ -34,7 +34,7 @@ export default function Login() {
     }
   };
   return (
-    <div className="bg-linear-to-r from-blue-400 to-zinc-100 flex h-screen w-screen items-center justify-center">
+    <div className="bg-linear-to-r from-blue-900 via-blue-500 to-blue-900 flex h-screen w-screen items-center justify-center">
       <div className="bg-linear-to-b from-zinc-200 to-zinc-100 border-white border-b border-t border-lw-90 h-90 flex rounded-tl-2xl rounded-bl-2xl flex-col justify-around shadow-xl p-4  ">
         <label className="font-bold text-center text-2xl text-black">
           Welcome Back!

@@ -29,26 +29,28 @@ export default function ProjectProgress() {
   );
 
   return (
-    <div className="w-7xl flex h-80 m-8">
-      <div className=" bg-white w-180 rounded-2xl">
-        <p className=" p-4 text-2xl pl-8">Project Overview</p>
+    <div className="flex justify-between mt-4">
+      <div className=" bg-white text-black border-white/20 w-180 rounded-2xl">
+        <p className="p-4 text-2xl">Project Overview</p>
         <div className="">
           <ProgressLine
+      
             title={projects[0]?.title}
             max={projectTasks.length}
             value={completedTasks.length}
+            color="bg-orange-700"
           />
           <ProgressLine
             title={projects[1]?.title}
             max={projectTasks2.length}
             value={completedTasks2.length}
-            color="bg-green-600"
+            color="bg-green-700"
           />
           <ProgressLine
             title={projects[2]?.title}
             max={projectTasks3.length}
             value={completedTasks3.length}
-            color="bg-orange-500"
+            color="bg-blue-700"
           />
         </div>
       </div>

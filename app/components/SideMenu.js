@@ -27,7 +27,7 @@ export default function SideMenu() {
   }
 
   return (
-    <div className="w-60 bg-gray-900 h-lvh flex flex-col items-center ">
+    <div className="w-60 bg-blue-950 h-lvh flex flex-col items-center ">
       <h1 className="text-3xl  text-amber-50 pt-4">
         <OtherHousesIcon className="scale-150 mr-4 mb-3" /> TaskPro
       </h1>

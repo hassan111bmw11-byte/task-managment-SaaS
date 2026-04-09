@@ -9,7 +9,7 @@ export default function HomeFeatures() {
         Key Features
       </h1>
       {/* cards */}
-      <div className="flex gap-4 justify-center mt-10">
+      <div className="flex  gap-4 justify-center mt-10">
         <div className="w-80 bg-white/30 backdrop-blur-md  border-white/90  p-6  font-bold hover:bg-zinc-400 h-45 flex gap-4 flex-col justify-center items-center border shadow-[0_0_40px_1px_rgba(0,0,0,0.20)] shadow-blue-400 transition-all duration-500 ease rounded-2xl">
           <div>
             <div className="flex items-center gap-4">
@@ -25,7 +25,7 @@ export default function HomeFeatures() {
             </p>
           </div>
         </div>
-        <div className="w-80 bg-white/30 backdrop-blur-md border-white/90 font-bold h-45 p-5 hover:bg-zinc-400 rounded-2xl border border-white shadow-[0_0_40px_1px_rgba(0,0,0,0.20)] shadow-purple-500  transition-all duration-500 ease">
+        <div className="w-80 bg-white/30 backdrop-blur-md border-white/90 font-bold h-45 p-5 hover:bg-zinc-400 rounded-2xl border shadow-[0_0_40px_1px_rgba(0,0,0,0.20)] shadow-purple-500  transition-all duration-500 ease">
           {" "}
           <div>
             <div className="flex items-center gap-4">
@@ -41,7 +41,7 @@ export default function HomeFeatures() {
             </p>
           </div>
         </div>
-        <div className="w-80 bg-white/30 backdrop-blur-md  border-white/90 hover:bg-zinc-400 font-bold h-45 p-5 rounded-2xl border border-white shadow-[0_0_40px_1px_rgba(0,0,0,0.20)] shadow-orange-400  transition-all duration-500 ease">
+        <div className="w-80 bg-white/30 backdrop-blur-md  border-white/90 hover:bg-zinc-400 font-bold h-45 p-5 rounded-2xl border  shadow-[0_0_40px_1px_rgba(0,0,0,0.20)] shadow-orange-400  transition-all duration-500 ease">
           {" "}
           <div>
             <div className="flex items-center gap-4">

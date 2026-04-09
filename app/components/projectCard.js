@@ -128,7 +128,7 @@ export default function ProjectCard() {
         return (
           <div
             key={index}
-            className="mt-4 p-4 pro-card flex justify-between flex-row-reverse  w-md h-50 shadow-2xl text-black bg-white rounded-2xl"
+            className="mt-4 mx-4 p-4 pro-card flex justify-between flex-row-reverse w-md h-50 shadow-2xl text-black bg-white rounded-2xl"
           >
             {/* option project button*/}
 
@@ -293,7 +293,7 @@ export default function ProjectCard() {
       </div>
       <hr className=" border-zinc-300 mt-4" />
 
-      <div className=" text-black grid grid-cols-2 pl-7 bg-zinc-300 h-100 rounded no-scrollbar overflow-auto mt-4">
+      <div className=" text-black grid grid-cols-2 gap-4 bg-zinc-300 h-100 w-fit rounded no-scrollbar overflow-auto">
         {MyProjectsList}
       </div>
     </div>

@@ -98,7 +98,15 @@ export default function Page({ params }) {
   const TodosTasks = projectTasks.filter((task) => task.status === "Todo");
   const DoingTasks = projectTasks.filter((task) => task.status === "Doing");
   const DoneTasks = projectTasks.filter((task) => task.status === "Done");
-
+// this task numbers
+  const tasksNumber = tasks.filter((task) => task.project === projectId);
+  const tododTasksNumbers = tasksNumber.filter((task) => task.status === "Todo");
+  const doingTasksNumbers = tasksNumber.filter(
+    (task) => task.status === "Doing"
+  )
+  const doneTasksNumbers = tasksNumber.filter(
+    (task) => task.status === "Done"
+  )
   // ====filter tasks====
 
   // delete tasks
@@ -151,7 +159,7 @@ export default function Page({ params }) {
   const currentProject = projects.filter((p) => p._id === projectId);
   console.log("projects>>>>>>>>>", currentProject);
   return (
-    <div className="bg-zinc-200 p-10  w-screen h-screen flex justify-center">
+    <div className="bg-linear-to-r from-blue-900 via-blue-500 to-blue-900 p-10  w-screen h-screen flex justify-center">
       <div className="bg-white p-4 rounded-lg h-screen w-5xl shadow-2xl ">
         {/* project title and date and add button container */}
         <div className="flex justify-between items-center ">
@@ -227,21 +235,21 @@ export default function Page({ params }) {
         <div className="flex justify-betwee items-center mt-4">
          <NumberCards
           status="Total Tasks"
-          numbers={tasks?.length}
+          numbers={tasksNumber?.length}
           icon={<AssignmentIcon sx={{ color: "purple" }} />}
         />  <NumberCards
           status="Completed"
-          numbers={DoneTasks?.length}
+          numbers={doneTasksNumbers?.length}
           icon={<HourglassTopIcon sx={{ color: "green" }} />}
         />
         <NumberCards
           status="In Progress"
-          numbers={DoingTasks?.length}
+          numbers={doingTasksNumbers?.length}
           icon={<CheckCircleIcon sx={{ color: "blue" }} />}
         />
         <NumberCards
           status="Todo"
-          // numbers={TodoingTasksLength}
+          numbers={tododTasksNumbers?.length}
           icon={<FolderIcon sx={{ color: "orange" }} />}
         />
         
@@ -262,7 +270,7 @@ export default function Page({ params }) {
               </span>
             </h1>
             <hr className=" mt-4 w-80 border border-yellow-500"></hr>
-            <div className="w-80 no-scrollbar rounded bg-zinc-200  h-screen mt-4 overflow-auto shadow">
+            <div className="w-80 no-scrollbar rounded transition-all duration-500 ease-in-out bg-zinc-200  h-screen mt-4 overflow-auto shadow border border-zinc-400">
               {TodosTasks?.map((task) => {
                 return (
                   <div
@@ -352,7 +360,7 @@ export default function Page({ params }) {
 
           {/* tasks Doing */}
 
-          <div className=" mt-4">
+          <div className="mt-4">
             <h1 className="font-bold text-2xl ">
               Doing
               <span className="rounded ml-2 pl-2 pr-2 text-center bg-gray-200  text-sm">
@@ -360,7 +368,7 @@ export default function Page({ params }) {
               </span>
             </h1>
             <hr className=" mt-4 w-80 border border-blue-800"></hr>
-            <div className="w-80 no-scrollbar rounded bg-zinc-200 h-screen mt-4 overflow-auto shadow">
+            <div className="w-80 no-scrollbar transition-all duration-500 ease-in-out rounded bg-zinc-200 h-screen mt-4 overflow-auto shadow border border-zinc-400">
               {DoingTasks?.map((task) => {
                 return (
                   <div
@@ -458,15 +466,15 @@ export default function Page({ params }) {
               </span>
             </h1>
             <hr className="mt-4 w-80 border border-green-700"></hr>
-            <div className="w-80 no-scrollbar rounded bg-zinc-200  h-screen mt-4 overflow-auto shadow">
+            <div className="w-80 no-scrollbar rounded transition-all duration-500 ease-in-out bg-zinc-200  h-screen mt-4 overflow-auto shadow border border-zinc-400">
               {DoneTasks.map((task) => {
                 return (
                   <div
-                    className="flex justify-between items-center p-4 hover:bg-gray-100 transition-all shadow-lg bg-white mr-1 ml-1 rounded mt-1"
+                    className="flex justify-between items-center p-4 hover:bg-gray-100 transition-all duration-500 ease-in-out shadow-lg bg-white mr-1 ml-1 rounded mt-1"
                     key={task?._id}
                   >
                     {/* Title & date */}
-                    <div className="flex flex-col">
+                    <div className="flex transition-all duration-500 ease-in-out flex-col">
                       <div>
                         <button
                           className="pr-2"
