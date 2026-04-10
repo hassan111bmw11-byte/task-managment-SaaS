@@ -101,18 +101,22 @@ export default function Page({ params }) {
     });
   }
   // filter tasks
-  const TodosTasks = projectTasks.filter((task) => task.status === "Todo");
-  const DoingTasks = projectTasks.filter((task) => task.status === "Doing");
-  const DoneTasks = projectTasks.filter((task) => task.status === "Done");
-// this task numbers
-  const tasksNumber = tasks.filter((task) => task.project === projectId);
-  const tododTasksNumbers = tasksNumber.filter((task) => task.status === "Todo");
-  const doingTasksNumbers = tasksNumber.filter(
-    (task) => task.status === "Doing"
-  )
-  const doneTasksNumbers = tasksNumber.filter(
-    (task) => task.status === "Done"
-  )
+const taskGroups = projectTasks.reduce(
+  (acc, task) => {
+    if (task.status === "Todo") acc.todo.push(task);
+    if (task.status === "Doing") acc.doing.push(task);
+    if (task.status === "Done") acc.done.push(task);
+    return acc;
+  },
+  { todo: [], doing: [], done: [] }
+);
+const TodosTasks = taskGroups.todo;
+const DoingTasks = taskGroups.doing;
+const DoneTasks = taskGroups.done;
+
+const tododTasksNumbers = TodosTasks.length;
+const doingTasksNumbers = DoingTasks.length;
+const doneTasksNumbers = DoneTasks.length;
   // ====filter tasks====
 
   // delete tasks
@@ -170,8 +174,8 @@ export default function Page({ params }) {
       };
   const currentProject = projects.filter((p) => p._id === projectId);
   return (
-    <div className="bg-linear-to-r from-blue-900 via-blue-500 to-blue-900 p-10  w-screen overflow-auto min-h-screen flex justify-center">
-      <div className="bg-white/30 p-4 rounded-lg h-screen w-5xl shadow-2xl ">
+    <div className="bg-linear-to-r from-blue-900 via-blue-500 to-blue-900 p-10  w-screen overflow-hidden min-h-screen flex justify-center">
+      <div className="bg-white/30 p-4 rounded-lg h-2xl w-full overflow-hidden shadow-2xl ">
         {/* project title and date and add button container */}
         <div className="flex justify-between gap-12  items-center ">
           {/* project title and date  */} 
@@ -243,24 +247,24 @@ export default function Page({ params }) {
           
         </div>
         {/* dashboards cards */}
-        <div className="flex justify-betwee items-center mt-4">
+        <div className="flex justify-between items-center mt-4">
          <NumberCards
           status="Total Tasks"
-          numbers={tasksNumber?.length}
+          numbers={projectTasks.length}
           icon={<AssignmentIcon sx={{ color: "purple" }} />}
         />  <NumberCards
           status="Completed"
-          numbers={doneTasksNumbers?.length}
+          numbers={doneTasksNumbers}
           icon={<HourglassTopIcon sx={{ color: "green" }} />}
         />
         <NumberCards
           status="In Progress"
-          numbers={doingTasksNumbers?.length}
+          numbers={doingTasksNumbers}
           icon={<CheckCircleIcon sx={{ color: "blue" }} />}
         />
         <NumberCards
           status="Todo"
-          numbers={tododTasksNumbers?.length}
+          numbers={tododTasksNumbers}
           icon={<FolderIcon sx={{ color: "orange" }} />}
         />
         

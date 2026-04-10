@@ -42,7 +42,7 @@ export default function DonutChart() {
   if (!userId) return <div className="p-4">Loading User Data...</div>;
 
   return (
-    <div className="rounded-2xl bg-white text-black w-73 p-4 h-80 ml-4">
+    <div className="rounded-2xl bg-white text-black w-70 p-4 h-80 ml-4">
       <h1 className="font-bold">
         <PieChartIcon sx={{ color: "blueviolet" }} /> Task Statistics
       </h1>

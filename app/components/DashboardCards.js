@@ -21,11 +21,11 @@ export default function DashboardNumberCard() {
   const TodoTasks = tasks?.filter((task) => task.status === "Todo").length || 0;
 
   return (
-    <div className="">
-      <h1 className="ml- mt-8 text-3xl font-bold">
+    <div>
+      <h1 className="ml-2 mt-8 text-3xl font-bold">
         Welcome back, {userName}!
       </h1>
-      <p className="">Manage your tasks efficiently</p>
+      <p className="ml-2">Manage your tasks efficiently</p>
       <div className="flex">
         <NumberCards
           status="Total Tasks"

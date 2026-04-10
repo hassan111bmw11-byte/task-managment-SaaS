@@ -32,7 +32,7 @@ export default function TaskColumn({
   };
 
   return (
-    <div className="mt-4">
+    <div className="mt-4 h-[90vh] overflow-hidden">
       <h1 className="font-bold text-2xl">
         {title}
         <span className="rounded ml-2 px-2 bg-gray-200 text-sm">
@@ -40,9 +40,9 @@ export default function TaskColumn({
         </span>
       </h1>
 
-      <hr className={`mt-4 w-80 border ${borderColor}`} />
+      <hr className={`mt-4 w-[90%] border ${borderColor}`} />
 
-      <div className="w-80  h-screen mt-4 overflow-auto shadow">
+      <div className="w-[90%]  mt-4 h-1/3 no-scrollbar overflow-auto shadow">
         {tasks?.map((task) => (
           <div
             key={task._id}

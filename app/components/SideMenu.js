@@ -43,7 +43,7 @@ export default function SideMenu() {
         <Link href="/MainContent/projects_temp">
           <nav className="hover:bg-gray-600 w-60 transition-all transition-discrete ">
             <FolderSharedIcon className="m-4" />
-            My projects & Tasks
+            projects
           </nav>
         </Link>
 
@@ -57,7 +57,7 @@ export default function SideMenu() {
         {/* Users Info */}
         <div className="mt-4 ml-4 flex flex-col gap-4 text-gray-600">
           <div className="flex items-center gap-4 text text-amber-50"><Avatar /> {user}</div>
-          <button onClick={Logout} className="text-gray-900 hover:bg-gray-600 hover:text-amber-50 transition-all duration-500 ease-in-out font-bold h-8 bg-amber-50 rounded-2xl">Logout</button>
+          <button onClick={Logout} className="text-gray-900 hover:bg-red-600 hover:text-amber-50 transition-all duration-500 ease-in-out font-bold h-8 bg-amber-50 rounded-2xl">Logout</button>
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ export default function ProgressLine({
   const percentage = Math.min((value / max) * 100, 100) || 0;
   return (
     <>
-      <div className="w-160 flex flex-col justify-cente hover:bg-zinc-400 transition-all duration-500 ease pl-4 mt-4 pr-4 pt-2 h-16 ml-8 bg-zinc-300 rounded-2xl shadow-lg ">
+      <div className="w-155 flex flex-col justify-cente hover:bg-zinc-400 transition-all duration-500 ease pl-4 mt-4 pr-4 pt-2 h-16 ml-8 bg-zinc-300 rounded-2xl shadow-lg ">
         {/* Header */}
         <div className="flex mb-2  justify-between  items-center">
           <h3 className="text-lg font-semibold text-gray-700">{title || "add new project"}</h3> {" "}

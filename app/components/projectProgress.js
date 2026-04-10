@@ -29,8 +29,8 @@ export default function ProjectProgress() {
   );
 
   return (
-    <div className="flex justify-between mt-4">
-      <div className=" bg-white text-black border-white/20 w-180 rounded-2xl">
+    <div className="flex w-246 justify-between  mt-4">
+      <div className=" bg-white text-black border-white/20 w-170 rounded-2xl">
         <p className="p-4 text-2xl">Project Overview</p>
         <div className="">
           <ProgressLine
