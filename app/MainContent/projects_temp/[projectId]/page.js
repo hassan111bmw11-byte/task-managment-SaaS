@@ -17,14 +17,11 @@ import TaskColumn from "@/app/components/TaskCard";
 
 
 // drag & drop
-// import {useDraggable} from '@dnd-kit/react';
-
-
+// import { useDroppable } from "@dnd-kit/core";
+// import { useDraggable } from "@dnd-kit/core";
+import { DndContext } from "@dnd-kit/core";
 export default function Page({ params }) {
 
-  // const {ref} = useDraggable({
-  //   id: 'draggable',
-  // });
   // option menu
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -173,6 +170,39 @@ const doneTasksNumbers = DoneTasks.length;
         setShowupdateBtn("flex");
       };
   const currentProject = projects.filter((p) => p._id === projectId);
+
+
+  // drag & drop
+function handleDragEnd(event) {
+  const { active, over } = event;
+
+  if (!over) return;
+
+  const taskId = active.id;
+  const newStatus = over.id;
+
+  setTasks((prev) => {
+    const updated = prev.map((task) =>
+      task._id === taskId
+        ? { ...task, status: newStatus }
+        : task
+    );
+
+    return [...updated]; // 🔥 مهم جداً
+  });
+
+  fetch(
+    `https://demo-rrxv.onrender.com/projects/${projectId}/tasks/${taskId}/status`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ status: newStatus }),
+    }
+  );
+}
   return (
     <div className="bg-linear-to-r from-blue-900 via-blue-500 to-blue-900 p-10  w-screen overflow-hidden min-h-screen flex justify-center">
       <div className="bg-white/30 p-4 rounded-lg h-2xl w-full overflow-hidden shadow-2xl ">
@@ -274,66 +304,73 @@ const doneTasksNumbers = DoneTasks.length;
         {/* ===project title and date and add button container=== */}
         <hr className=" border-zinc-300 mt-4" />
         {/*  todo & in progres & done Tasks grid conteainer  */}
-        <div className="grid grid-cols-3 justify-center overflow-auto items-center ">
-          {/* tasks todo */}
 
-          <div className=" mt-4">
+        <DndContext onDragEnd={handleDragEnd}>
+                <div className="grid grid-cols-3 justify-center overflow-auto items-start gap-4 ">
+                  {/* tasks todo */}
 
-        <div className="overflow-auto">          
-          <TaskColumn
-            title="Todo"
-            tasks={TodosTasks}
-            borderColor="border-yellow-500"
-            iconColor="#ffea00"
-            isDone={false}
-            onStatusChange={(taskId) =>
-              HandelUpdateStatus(projectId, taskId)
-            }
-            onDelete={HandelDeleteTask}
-            onEdit={handleEditTask}
-          /></div>
-          </div>
+                  <div className=" mt-4">
 
-          {/* ===tasks todo=== */}
+                <div className="overflow-auto">          
+                  <TaskColumn
+                  id="Todo"
+                    title="Todo"
+                    tasks={TodosTasks}
+                    borderColor="border-yellow-500"
+                    iconColor="#ffea00"
+                    isDone={false}
+                    onStatusChange={(taskId) =>
+                      HandelUpdateStatus(projectId, taskId)
+                    }
+                    onDelete={HandelDeleteTask}
+                    onEdit={handleEditTask}
+                  /></div>
+                  </div>
 
-          {/* tasks Doing */}
+                  {/* ===tasks todo=== */}
 
-          <div className="mt-4">
-          <TaskColumn
-                title="Doing"
-                tasks={DoingTasks}
-                borderColor="border-blue-800"
-                iconColor="#0024c8"
-                isDone={false}
-                onStatusChange={(taskId) =>
-                  HandelUpdateStatus(projectId, taskId)
-                }
-                onDelete={HandelDeleteTask}
-                onEdit={handleEditTask}
-              />
-          </div>
+                  {/* tasks Doing */}
 
-          {/* ===tasks Doing===
+                  <div className="mt-4">
+                  <TaskColumn
+                  id="Doing"
+                        title="Doing"
+                        tasks={DoingTasks}
+                        borderColor="border-blue-800"
+                        iconColor="#0024c8"
+                        isDone={false}
+                        onStatusChange={(taskId) =>
+                          HandelUpdateStatus(projectId, taskId)
+                        }
+                        onDelete={HandelDeleteTask}
+                        onEdit={handleEditTask}
+                      />
+                  </div>
 
-          {/* tasks Done */}
+                  {/* ===tasks Doing===
 
-          <div className=" mt-4">
-          <TaskColumn
-                title="Done"
-                tasks={DoneTasks}
-                borderColor="border-green-500"
-                iconColor="#00ff00"
-                isDone={true}
-                onStatusChange={(taskId) =>
-                  HandelUpdateStatus(projectId, taskId)
-                }
-                onDelete={HandelDeleteTask}
-                onEdit={handleEditTask}
-              />
-          </div>
+                  {/* tasks Done */}
 
-          {/* ===tasks Done=== */}
-        </div>
+                  <div className=" mt-4">
+                  <TaskColumn
+                  id="Done"
+                        title="Done"
+                        tasks={DoneTasks}
+                        borderColor="border-green-500"
+                        iconColor="#00ff00"
+                        isDone={true}
+                        onStatusChange={(taskId) =>
+                          HandelUpdateStatus(projectId, taskId)
+                        }
+                        onDelete={HandelDeleteTask}
+                        onEdit={handleEditTask}
+                      />
+                  </div>
+
+                  {/* ===tasks Done=== */}
+                </div>
+          </DndContext>
+
         {/* =====todo & in progres & done Tasks grid conteainer=====  */}
       </div>
     </div>
