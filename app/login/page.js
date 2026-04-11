@@ -48,7 +48,7 @@ export default function Login() {
               setUserLogin({ ...userLogin, email: e.target.value });
             }}
             type="email"
-            className="border-2 mb-2 font-bold transition duration-300 ease-in-out focus:border-2 focus:border-blue-800 focus:outline-none focus:shadow-lg shadow-2xl pl-2 h-10 rounded-lg w-80"
+            className="border-2 border-white mb-2 font-bold transition duration-300 ease-in-out focus:border-2 focus:border-blue-800 focus:outline-none focus:shadow-lg shadow-2xl pl-2 h-10 rounded-lg w-80"
           />
           <label className=" font-bold mb-2">Password</label>
           <input
@@ -58,12 +58,12 @@ export default function Login() {
             }}
             type="password"
             placeholder="password"
-            className="border-2 font-bold transition duration-300 ease-in-out focus:border-2 focus:border-blue-800 focus:outline-none focus:shadow-lg shadow-md  pl-2 h-10 rounded-lg w-80"
+            className="border-2 border-white font-bold transition duration-300 ease-in-out focus:border-2 focus:border-blue-800 focus:outline-none focus:shadow-lg shadow-md  pl-2 h-10 rounded-lg w-80"
           />
         </div>
         <button
           onClick={Login}
-          className="bg-linear-to-r from-blue-900 via-blue-500 to-blue-900 w-80 mt-4 text-white text-center h-10 rounded-2xl hover:bg-linear-to-r hover:from-blue-500 hover:via-blue-900 hover:to-blue-500 transition ease-linear duration-500 shadow-2xl"
+          className="bg-linear-to-r from-blue-900 via-45% to-blue-700 w-80 mt-4 text-white text-center h-10 rounded-2xl hover:bg-linear-to-r hover:from-blue-600 hover:via-45% hover:to-blue-900 transition ease-linear duration-500 shadow-2xl"
         >
           login
         </button>

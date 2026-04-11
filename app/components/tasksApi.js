@@ -1,14 +1,14 @@
 "use client";
-import { createContext, useState, useEffect, useContext } from "react";
-import { ProjectContext } from "./projectsApi";
+import { createContext, useState, useEffect } from "react";
 export const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
-  const { currentProjects } = useContext(ProjectContext);
   const [tasks, setTasks] = useState([]);
   const [user, setUser] = useState("");
+  const [loading,setLoading]= useState(false);
   useEffect(() => {
     async function getTasks() {
+      setLoading(true);
       const userInfo = JSON.parse(localStorage.getItem("data"));
       setUser(userInfo); // تحديث الحالة للمكونات الأخرى
 
@@ -36,6 +36,8 @@ export const TaskProvider = ({ children }) => {
         setTasks(data || []);
       } catch (error) {
         console.error("Error fetching tasks:", error);
+      }finally {
+        setLoading(false);
       }
     }
       console.log("tasks from dashboard Card", tasks);
@@ -44,7 +46,7 @@ export const TaskProvider = ({ children }) => {
   }, []); // تأكد أن token و userLogin معرفين خارج الـ useEffect أو مضافين للمصفوفة هنا
 
   return (
-    <TaskContext.Provider value={{ tasks, setTasks }}>
+    <TaskContext.Provider value={{ tasks, setTasks,loading }}>
       {children}
     </TaskContext.Provider>
   );

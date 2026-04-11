@@ -32,8 +32,8 @@ export default function ProjectCard() {
   const [showAdd, setShowAdd] = useState("flex");
 
   // ===projects=====
-  const { projects, setProjects, token } = useContext(ProjectContext) ?? {};
-  const { tasks, SetTasks } = useContext(TaskContext);
+  const { projects, setProjects, token, loading } = useContext(ProjectContext) ?? {};
+  const { tasks } = useContext(TaskContext);
     const [user, setUser] = useState("");
 
   // update project state
@@ -128,12 +128,13 @@ export default function ProjectCard() {
   }
 
   const MyProjectsList =
+  
     projects && Array.isArray(projects) ? (
       projects?.map((project, index) => {
         return (
           <div
             key={index}
-            className="mt-4 mx-4 p-4 pro-card flex justify-between flex-row-reverse w-md h-fit shadow-2xl text-black bg-white rounded-2xl border border-zinc-400"
+            className="mt-4 mx-4 p-4 pro-card flex justify-between flex-row-reverse w-md h-fit shadow-2xl text-black bg-white/30 rounded-2xl border border-zinc-400"
           >
             {/* option project button*/}
 
@@ -298,9 +299,29 @@ export default function ProjectCard() {
       </div>
       <hr className=" border-zinc-400 shadow-2xl mt-4" />
 
-      <div className=" text-black grid grid-cols-2 w-fit rounded h-9/12 no-scrollbar overflow-y-scroll">
-        {MyProjectsList}
-      </div>
+      <div className=" text-black grid grid-cols-2 justify-center items-center w-full rounded h-9/12 no-scrollbar overflow-y-scroll">
+
+  {loading ? (
+    // ✅ Loading هنا
+    <>
+      {[1, 2, 3,4,5,6].map(i => (
+        <div
+          key={i}
+          className="h-38 w-md bg-blue-500 m-4 rounded-2xl p-4 animate-pulse"
+        />
+      ))}
+    </>
+  ) : projects?.length === 0 ? (
+    // ✅ Empty state
+    <p className="text-black w-full col-span-2 text-center mt-8">
+      No projects yet 🚀
+    </p>
+  ) : (
+    // ✅ البيانات
+    MyProjectsList
+  )}
+
+</div>
     </div>
   );
 }

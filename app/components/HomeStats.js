@@ -27,7 +27,7 @@ export default function HomeStats() {
         </div>
         <div className="w-60 h-30 transition-all duration-500 ease hover:bg-zinc-400 flex flex-col justify-center items-center
         bg-white/30 backdrop-blur-md border border-white/50 rounded-xl p-6 shadow-lg">
-          <h1 className="font-bold text-green-500 text-4xl">98%</h1>
+          <h1 className="font-bold text-green-800 text-4xl">98%</h1>
           <p className="mt-2  text-amber-50">User Satisfaction</p>
         </div>
       </div>

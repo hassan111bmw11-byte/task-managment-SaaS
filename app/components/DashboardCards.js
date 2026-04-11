@@ -11,7 +11,7 @@ import NumberCards from "../components/CardsNumbers";
 
 export default function DashboardNumberCard() {
   const { userName } = useContext(ProjectContext);
-  const { tasks } = useContext(TaskContext);
+  const { tasks,loading } = useContext(TaskContext);
 
     console.log("tasks from dashboard Card", tasks);
   const completedTasks =
@@ -27,6 +27,7 @@ export default function DashboardNumberCard() {
       </h1>
       <p className="ml-2">Manage your tasks efficiently</p>
       <div className="flex">
+        
         <NumberCards
           status="Total Tasks"
           numbers={tasks?.length}

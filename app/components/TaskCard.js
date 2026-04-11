@@ -7,18 +7,17 @@ export default function TaskColumn({
   tasks,
   borderColor,
   iconColor,
-  isDone,
   onStatusChange,
   onDelete,
   onEdit,
-  id,
+  loading,
 }) {
   const { setNodeRef } = useDroppable({
-    id,
+    id: title
   });
 
   return (
-<div ref={setNodeRef} className=" min-h-[80vh]">
+<div ref={setNodeRef} className=" w-full overflow-y-scroll no-scrollbar h-[80vh]">
         <h1 className="font-bold text-2xl">
         {title}
         <span className="ml-2 px-2 bg-gray-200 text-sm rounded">
@@ -26,20 +25,35 @@ export default function TaskColumn({
         </span>
       </h1>
 
-      <hr className={`mt-4 w-[90%] border ${borderColor}`} />
+      <hr className={`mt-4 w-full border ${borderColor}`} />
 
-      <div className="w-[90%] mt-4 space-y-2">
-        {tasks?.filter(Boolean).map((task) => (
+      <div className="w-full mt-4 h-[80vh] no-scrollbar">
+        
+  {loading ? (
+    <>
+      {[1, 2, 3].map(i => (
+        <div
+          key={i}
+          className="h-20 bg-blue-700 mt-2 rounded-xl animate-pulse"
+        />
+      ))}
+    </>
+  ) : tasks?.length === 0 ? (
+    <p className="text-gray-100 font-semibold text-center mt-8">
+      No tasks yet 🚀
+    </p>
+  ) : (
+        tasks?.filter(Boolean).map((task) => (
           <TaskItem
             key={task._id}
             task={task}
-            isDone={isDone}
+            isDone={task.status === "Done"}
             iconColor={iconColor}
             onStatusChange={onStatusChange}
             onDelete={onDelete}
             onEdit={onEdit}
           />
-        ))}
+        )))}
       </div>
     </div>
   );

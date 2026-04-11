@@ -8,6 +8,7 @@ export const ProjectProvider = ({ children }) => {
   const [projects, setProjects] = useState([]);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // 1. جلب البيانات من localStorage فوراً
@@ -22,6 +23,7 @@ export const ProjectProvider = ({ children }) => {
       setToken(token);
 
       const getProjects = async () => {
+        setLoading(true);
         try {
           const response = await fetch(
             `https://demo-rrxv.onrender.com/userProjects`,
@@ -42,6 +44,8 @@ export const ProjectProvider = ({ children }) => {
           }
         } catch (error) {
           console.error("Error fetching projects:", error);
+        }finally {
+          setLoading(false);
         }
       };
 
@@ -58,7 +62,7 @@ export const ProjectProvider = ({ children }) => {
 
   return (
     <ProjectContext.Provider
-      value={{ projects, setProjects, userId, userEmail, userName, token }}
+      value={{ projects, setProjects, userId, userEmail, userName, token, loading }}
     >
       {children}
     </ProjectContext.Provider>

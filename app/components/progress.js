@@ -21,7 +21,7 @@ export default function ProgressLine({
         </div>
 
         {/* Progress Bar */}
-        <div className="w-150 h-3  bg-gray-300 rounded-full overflow-hidden">
+        <div className="w-145 h-3  bg-gray-300 rounded-full overflow-hidden">
           <div
             className={`h-full  ${color}  transition-all  duration-700 ease-in-out`}
             style={{ width: `${percentage}%` }}

@@ -2,11 +2,8 @@
 "use client";
 
 import OtherHousesIcon from "@mui/icons-material/OtherHouses";
-import HomeIcon from "@mui/icons-material/Home";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import FolderSharedIcon from "@mui/icons-material/FolderShared";
-import TaskIcon from "@mui/icons-material/Task";
-import SettingsIcon from "@mui/icons-material/Settings";
 import Avatar from "@mui/material/Avatar";
 import Link from "next/link";
 import { useState, useEffect, use } from "react";
@@ -33,7 +30,7 @@ export default function SideMenu() {
       </h1>
       <hr className="text-gray-500 w-52 mt-4" />
       <label className="text-white mr-40 mt-4">Main</label>
-      <div className="ml-8 font-semibold text-amber-50 ">
+      <div className="mx-8 w-full font-semibold text-amber-50 ">
         <Link href="/MainContent/dashboard">
           <nav className="hover:bg-gray-600 w-60 transition-all transition-discrete ">
             <SpaceDashboardIcon className="m-4 " />

@@ -39,7 +39,12 @@ export default function DonutChart() {
     { id: 2, value: todoTasks, label: "Todo", color: "orange" },
   ];
 
-  if (!userId) return <div className="p-4">Loading User Data...</div>;
+  if (!userId) return <div> {[1].map(i => (
+        <div
+          key={i}
+          className="h-80 w-70 ml-4 bg-gray-200 m-4 rounded-2xl p-4 animate-pulse"
+        />
+      ))}</div>;
 
   return (
     <div className="rounded-2xl bg-white text-black w-70 p-4 h-80 ml-4">
