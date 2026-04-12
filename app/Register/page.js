@@ -3,12 +3,14 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function RegisterPage() {
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({
     userName: "",
     email: "",
     password: "",
   });
   const addNewUser = async () => {
+    setLoading(true);
     try {
       const res = await fetch("https://demo-rrxv.onrender.com/register", {
         method: "POST",
@@ -39,6 +41,8 @@ export default function RegisterPage() {
     } catch (error) {
       console.error("Network Error:", error);
       alert("مشكلة في الاتصال بالسيرفر");
+    }finally{
+      setLoading(false);
     }
   };
   return (
@@ -82,14 +86,16 @@ export default function RegisterPage() {
         />
 
         <button
-          onClick={addNewUser}
-          className="bg-linear-to-r from-blue-900 via-45% to-blue-700 shadow-2xl shadow-blue-500 w-80 mt-4 text-white text-center h-12  hover:bg-linear-to-r border-white hover:via-45% hover:to-blue-900 rounded-2xl transition duration-500 ease-in-out"
+          onClick={addNewUser} 
+          disabled={loading}
+          className="bg-linear-to-r from-blue-900 via-45% to-blue-700 shadow-2xl shadow-blue-500 w-80 mt-4 text-white flex items-center justify-center h-12  hover:bg-linear-to-r border-white hover:via-45% hover:to-blue-900 rounded-2xl transition duration-500 ease-in-out"
         >
-          Register
+        {loading ? (<div className="animate-spin rounded-full h-6 w-6 border-4 flex border-white border-t-transparent"></div>) : (
+          'Register')}
         </button>
         <label className="font-bold text-sm text-center mt-4">
           Already have an account?{" "}
-          <a href="/login" className="text-blue-700 mt-4 font-bold">
+          <a href="/login"  className="text-blue-700 mt-4 font-bold">
             Login
           </a>
         </label>

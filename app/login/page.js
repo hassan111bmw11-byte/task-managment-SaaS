@@ -3,8 +3,10 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function Login() {
+  const [loading, setLoading] = useState(false);
   const [userLogin, setUserLogin] = useState("");
   const Login = async () => {
+    setLoading(true);
     const userInfo = JSON.parse(localStorage.getItem("data")) || [];
     const token = userInfo?.data?.token;
     try {
@@ -31,6 +33,8 @@ export default function Login() {
     } catch (error) {
       console.error("Fetch error:", error);
       alert("حدث خطأ في الاتصال بالسيرفر");
+    }finally{
+      setLoading(false);
     }
   };
   return (
@@ -63,9 +67,10 @@ export default function Login() {
         </div>
         <button
           onClick={Login}
-          className="bg-linear-to-r from-blue-900 via-45% to-blue-700 w-80 mt-4 text-white text-center h-10 rounded-2xl hover:bg-linear-to-r hover:from-blue-600 hover:via-45% hover:to-blue-900 transition ease-linear duration-500 shadow-2xl"
-        >
-          login
+     
+          className="bg-linear-to-r from-blue-900 via-45% to-blue-700 w-80 mt-4 text-white flex justify-center items-center h-10 rounded-2xl hover:bg-linear-to-r hover:from-blue-600 hover:via-45% hover:to-blue-900 transition ease-linear duration-500 shadow-2xl"
+        >{loading ? (<div className="animate-spin rounded-full h-6 w-6 border-4 flex border-white border-t-transparent"></div>) : (
+          'login')}
         </button>
         <label className="text-sm font-bold text-center">
           Don't have an account?{" "}
