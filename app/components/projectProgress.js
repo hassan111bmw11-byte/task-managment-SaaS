@@ -52,7 +52,7 @@ export default function ProjectProgress() {
                 color="bg-green-700"
               />
               <ProgressLine
-                title={projects?.[2]?.title || "Project 3"}
+                title={projects?.[2]?.title || "no project"}
                 max={projectTasks3.length}
                 value={completedTasks3.length}
                 color="bg-blue-700"
