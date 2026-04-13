@@ -1,7 +1,7 @@
 // import DashboardIcon from "@mui/icons-material/Dashboard";
 import ViewKanbanIcon from "@mui/icons-material/ViewKanban";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import DonutSmallIcon from "@mui/icons-material/DonutSmall";
+import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 export default function HomeFeatures() {
   return (
     <div id="Features" className=" w-screen h-100">
@@ -14,7 +14,7 @@ export default function HomeFeatures() {
           <div>
             <div className="flex items-center gap-4">
               <div className="bg-blue-600 p-4 w-fit h-14 rounded-2xl ">
-                <DonutSmallIcon className="text-5xl text-white mb-5" />
+                <SpaceDashboardIcon className="text-5xl text-white mb-5" />
               </div>
               <span className="font-bold text-2xl w-30 text-zinc-800">
                 Dashboard Overview
