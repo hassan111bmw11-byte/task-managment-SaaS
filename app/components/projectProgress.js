@@ -40,13 +40,13 @@ export default function ProjectProgress() {
             // ✅ عرض البيانات الحقيقية
             <>
               <ProgressLine
-                title={projects?.[0]?.title || "Project 1"}
+                title={projects?.[0]?.title || "no project"}
                 max={projectTasks.length}
                 value={completedTasks.length}
                 color="bg-orange-700"
               />
               <ProgressLine
-                title={projects?.[1]?.title || "Project 2"}
+                title={projects?.[1]?.title || "no project"}
                 max={projectTasks2.length}
                 value={completedTasks2.length}
                 color="bg-green-700"
