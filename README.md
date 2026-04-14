@@ -16,6 +16,7 @@ Built with **Next.js** for performance, SEO optimization, and full-stack capabil
 
 ### 📁 Project Management
 - Create, edit, and delete projects
+
 - Organize work into multiple independent projects
 - Clean and intuitive dashboard
 

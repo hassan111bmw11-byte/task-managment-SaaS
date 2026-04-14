@@ -7,14 +7,14 @@ export default function Login() {
   const [userLogin, setUserLogin] = useState("");
   const Login = async () => {
     setLoading(true);
-    const userInfo = JSON.parse(localStorage.getItem("data")) || [];
-    const token = userInfo?.data?.token;
+    // const userInfo = JSON.parse(localStorage.getItem("data")) || [];
+    // const token = userInfo?.data?.token;
     try {
       const res = await fetch("https://demo-rrxv.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           email: userLogin.email,
