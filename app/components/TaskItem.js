@@ -34,7 +34,7 @@ export default function TaskItem({ task, isDone, iconColor, onStatusChange, onDe
     <div
       ref={setNodeRef}
       style={style}
-      className="flex justify-between items-center p-4 shadow bg-white/50 rounded-2xl mt-2 cursor-grab select-none"
+      className="flex justify-between items-center p-4 border border-white  shadow-2xl bg-white/30 rounded-2xl mt-2 cursor-grab select-none"
     >
       {/* ✅ drag handle منفصل فقط */}
       <div
@@ -48,13 +48,13 @@ export default function TaskItem({ task, isDone, iconColor, onStatusChange, onDe
       </div>
 
       <div className="flex flex-col flex-1">
-        <div>
+        <div className="flex items-center">
           <button
             onClick={(e) => {
               e.stopPropagation(); // ✅
               onStatusChange(task._id);
             }}
-            className="pr-2"
+            className="pr-2 scale-125"
           >
             {isDone ? (
               <CheckCircleIcon sx={{ color: iconColor }} />
@@ -62,7 +62,7 @@ export default function TaskItem({ task, isDone, iconColor, onStatusChange, onDe
               <CircleIcon sx={{ color: iconColor }} />
             )}
           </button>
-          <span className="font-bold">{task.title}</span>
+          <span className="font-bold text-2xl">{task.title}</span>
         </div>
 
         <span className="text-gray-600 text-sm ml-8">

@@ -134,7 +134,7 @@ export default function ProjectCard() {
         return (
           <div
             key={index}
-            className="mt-4 mx-4 p-4 pro-card flex justify-between flex-row-reverse w-md h-fit shadow-2xl text-black bg-white/30 rounded-2xl border border-zinc-400"
+            className="mt-4 mx-4 p-4 pro-card flex justify-between flex-row-reverse w-md h-fit shadow-2xl text-black bg-white/30 rounded-2xl border border-white"
           >
             {/* option project button*/}
 

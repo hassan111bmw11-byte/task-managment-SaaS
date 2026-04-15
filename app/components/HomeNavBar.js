@@ -1,6 +1,6 @@
 export default function HomeNavBar() {
   return (
-    <div style={{background:"#2845D6"}} className="w-screen rounded-2xl h-16 flex items-center z-50 fixed justify-between px-8 shadow-xl">
+    <div className="w-screen bg-white/30 backdrop-blur-md rounded-2xl h-16 flex items-center z-50 fixed justify-between px-8 shadow-xl">
       <div className=" flex gap-4 items-center">
         <h1 className="text-2xl flex gap-4 font-bold text-white">TaskPro</h1>
 
